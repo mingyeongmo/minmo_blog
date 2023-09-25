@@ -1,0 +1,37 @@
+.home {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 48px;
+    color: #ed7458;
+  }
+  .search_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px;
+    height: 50px;
+    padding: 10px 30px;
+    margin: 20px 0 30px 0;
+
+    border: 1px solid #9e9e9e;
+    border-radius: 20px;
+    .search_input {
+      width: 100%;
+      height: 25px;
+      border: none;
+      font-size: 18px;
+    }
+    .search_img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .blog_postlist {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
