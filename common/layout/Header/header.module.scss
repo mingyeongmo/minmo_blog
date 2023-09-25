@@ -4,7 +4,6 @@
   height: 80px;
   display: flex;
   justify-content: space-around;
-  // background: #f2f2f2;
 
   a {
     color: black;
@@ -12,16 +11,12 @@
   }
   .navbar {
     width: 100%;
-    max-width: 900px;
     margin: auto;
     display: flex;
-    justify-content: space-between;
-
+    justify-content: center;
+    gap: 600px;
     .nav_right {
       display: flex;
-      a {
-        margin-left: 15px;
-      }
     }
   }
 }

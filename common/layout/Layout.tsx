@@ -1,14 +1,16 @@
+import Footer from "./Footer/Footer";
 import Header from "./Header/Header";
 import styles from "./Layout.module.scss";
 
 const Layout = ({ children }: any) => {
   return (
-    <div>
+    <>
       <Header />
-      <div className={styles.body}>
-        <div>{children}</div>
-      </div>
-    </div>
+      <main className={styles.body}>
+        <div className={styles.children}>{children}</div>
+      </main>
+      <Footer />
+    </>
   );
 };
 

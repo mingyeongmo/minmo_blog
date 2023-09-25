@@ -1,0 +1,39 @@
+.post_box {
+  width: 600px;
+  height: 160px;
+  background: #f0f0f0;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+
+  .post_upside {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    .post_contents {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: black;
+
+      .post_date {
+        font-size: 14px;
+      }
+
+      .post_title {
+        font-size: 18px;
+      }
+
+      .post_des {
+        font-size: 16px;
+      }
+    }
+  }
+  .post_category {
+    font-size: 16px;
+    color: #ed7458;
+    font-weight: 800;
+  }
+}
