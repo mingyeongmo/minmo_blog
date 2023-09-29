@@ -4,6 +4,11 @@
   height: 80px;
   display: flex;
   justify-content: space-around;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background: #ffffff;
 
   a {
     color: black;
@@ -14,7 +19,7 @@
     margin: auto;
     display: flex;
     justify-content: center;
-    gap: 600px;
+    gap: 700px;
     .nav_right {
       display: flex;
     }

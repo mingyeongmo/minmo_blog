@@ -2,7 +2,7 @@ import type { InferGetStaticPropsType } from "next";
 import { ChangeEvent, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
 import Image from "next/image";
-import PostList from "common/components/PostList/PostList";
+import PostList from "src/components/PostList/PostList";
 import { SearchImage } from "public/images";
 import styles from "./index.module.scss";
 
@@ -25,12 +25,18 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
           type="text"
           placeholder="검색어를 입력해주세요."
         />
-
         <Image className={styles.search_img} src={SearchImage} alt="돋보기" />
       </div>
+
+      <ul className={styles.category}>
+        <li>전체</li>
+        <li>TypeScript</li>
+      </ul>
+
       <PostList
         posts={(posts as Post[]).filter(
           (post) =>
+            // 제목 또는 내용
             post.title.toLowerCase().includes(search) ||
             post.description.toLowerCase().includes(search)
         )}

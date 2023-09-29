@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./header.module.scss";
-import { LightImage } from "../../../public/images/index";
+import { LightImage } from "../../../../public/images/index";
 import Image from "next/image";
 
 const Header = () => {
