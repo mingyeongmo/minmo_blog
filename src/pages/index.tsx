@@ -5,9 +5,11 @@ import Image from "next/image";
 import PostList from "src/components/PostList/PostList";
 import { SearchImage } from "public/images";
 import styles from "./index.module.scss";
+import DropDown from "src/components/DropDown/DropDown";
 
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [search, setSearch] = useState("");
+  const [view, setView] = useState(false);
 
   console.log("post length : ", posts.length);
 
@@ -28,9 +30,9 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         <Image className={styles.search_img} src={SearchImage} alt="돋보기" />
       </div>
 
-      <ul className={styles.category}>
-        <li>전체</li>
-        <li>TypeScript</li>
+      <ul onClick={() => setView(!view)} className={styles.category}>
+        전체
+        {view && <DropDown />}
       </ul>
 
       <PostList
