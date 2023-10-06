@@ -29,6 +29,13 @@
     }
   }
 
+  .dropdown_menu {
+    margin-bottom: 15px;
+    .category {
+      font-size: 24px;
+    }
+  }
+
   .blog_postlist {
     display: flex;
     flex-direction: column;

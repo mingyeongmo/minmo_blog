@@ -1,15 +1,16 @@
 import type { InferGetStaticPropsType } from "next";
 import { ChangeEvent, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
+import { DropdownImg, DropupImg, SearchImage } from "public/images";
 import Image from "next/image";
 import PostList from "src/components/PostList/PostList";
-import { SearchImage } from "public/images";
-import styles from "./index.module.scss";
 import DropDown from "src/components/DropDown/DropDown";
+import styles from "./index.module.scss";
 
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [search, setSearch] = useState("");
   const [view, setView] = useState(false);
+  const [cate, setCate] = useState("");
 
   console.log("post length : ", posts.length);
 
@@ -29,18 +30,25 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         />
         <Image className={styles.search_img} src={SearchImage} alt="돋보기" />
       </div>
+      <div className={styles.dropdown_menu}>
+        <div onClick={() => setView(!view)} className={styles.category}>
+          {cate ? cate : "전체"}
 
-      <ul onClick={() => setView(!view)} className={styles.category}>
-        전체
-        {view && <DropDown />}
-      </ul>
-
+          {view && <DropDown posts={posts} setCate={setCate} />}
+          {view ? (
+            <Image src={DropupImg} alt="hi" />
+          ) : (
+            <Image src={DropdownImg} alt="ok" />
+          )}
+        </div>
+      </div>
       <PostList
         posts={(posts as Post[]).filter(
           (post) =>
             // 제목 또는 내용
-            post.title.toLowerCase().includes(search) ||
-            post.description.toLowerCase().includes(search)
+            (post.title.toLowerCase().includes(search) ||
+              post.description.toLowerCase().includes(search)) &&
+            post.category.includes(cate)
         )}
       />
     </div>

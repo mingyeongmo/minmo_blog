@@ -1,10 +1,16 @@
 import { InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
+import { Dispatch, SetStateAction } from "react";
 import { Post, allPosts } from "contentlayer/generated";
 import { getStaticProps } from "src/pages";
+import styles from "./DropDown.module.scss";
 
-const DropDown = ({
-  posts,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+interface DropDownType {
+  posts: Post[];
+  setCate: Dispatch<SetStateAction<string>>;
+}
+// InferGetStaticPropsType<typeof getStaticProps>
+
+const DropDown = ({ posts, setCate }: DropDownType) => {
   // 카테고리 종류 (중복 O)
   let categoryDupList = posts.map((post) => post.category);
 
@@ -21,17 +27,19 @@ const DropDown = ({
   // 배열로 바꿔준다.
   let ascArr = Object.keys(ascObject);
 
-  console.log({ categoryDupList });
-  console.log({ elementsNumber });
-  console.log({ ascObject });
-  console.log({ ascArr });
+  const PostClick = (post) => {
+    setCate(() => post);
+  };
 
   return (
-    <>
+    <ul className={styles.cate_list}>
+      <li onClick={() => setCate("")}>전체</li>
       {ascArr.map((post, index) => (
-        <li key={index}>{post}</li>
+        <li onClick={() => PostClick(post)} key={index}>
+          {post}
+        </li>
       ))}
-    </>
+    </ul>
   );
 };
 
