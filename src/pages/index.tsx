@@ -11,9 +11,10 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [search, setSearch] = useState("");
   const [view, setView] = useState(false);
   const [cate, setCate] = useState("");
+  const [cateNum, setCateNum] = useState(0);
 
-  console.log("post length : ", posts.length);
-
+  // console.log("post length : ", posts.length);
+  // console.log({ posts });
   const inputSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value.toLowerCase());
   };
@@ -33,13 +34,17 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
-
-          {view && <DropDown posts={posts} setCate={setCate} />}
+          {view && (
+            //TODO: setCate 하고 setCateNum useReducer로 묶어보자.
+            <DropDown posts={posts} setCate={setCate} setCateNum={setCateNum} />
+          )}
           {view ? (
             <Image src={DropupImg} alt="hi" />
           ) : (
             <Image src={DropdownImg} alt="ok" />
           )}
+          {/*TODO: posts.length 실시간 변화 시켜야함 */}
+          {cateNum ? cateNum : posts.length}
         </div>
       </div>
       <PostList

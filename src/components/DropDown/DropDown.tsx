@@ -4,13 +4,15 @@ import { Post, allPosts } from "contentlayer/generated";
 import { getStaticProps } from "src/pages";
 import styles from "./DropDown.module.scss";
 
+// TODO: 타입 정의가 필요하다.
 interface DropDownType {
   posts: Post[];
   setCate: Dispatch<SetStateAction<string>>;
+  setCateNum: Dispatch<SetStateAction<number>>;
 }
 // InferGetStaticPropsType<typeof getStaticProps>
 
-const DropDown = ({ posts, setCate }: DropDownType) => {
+const DropDown = ({ posts, setCate, setCateNum }: DropDownType) => {
   // 카테고리 종류 (중복 O)
   let categoryDupList = posts.map((post) => post.category);
 
@@ -29,7 +31,15 @@ const DropDown = ({ posts, setCate }: DropDownType) => {
 
   const PostClick = (post) => {
     setCate(() => post);
+    // console.log("post.length", post);
+    setCateNum(() => ascObject[post]);
+    console.log("ok", ascObject[post]);
   };
+
+  console.log({ elementsNumber, ascObject, ascArr });
+  // console.log("hi", ascObject.JavaScript);
+  // console.log("ok", ascObject["JavaScript"]);
+  console.log({ ascArr });
 
   return (
     <ul className={styles.cate_list}>
