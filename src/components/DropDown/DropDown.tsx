@@ -9,15 +9,21 @@ interface DropDownType {
   posts: Post[];
   setCate: Dispatch<SetStateAction<string>>;
   setCateNum: Dispatch<SetStateAction<number>>;
+  // dispatch: Dispatch<Action>;
+  dispatch: Dispatch<any>;
 }
 // InferGetStaticPropsType<typeof getStaticProps>
-
-const DropDown = ({ posts, setCate, setCateNum }: DropDownType) => {
+// setCate, setCateNum,
+const DropDown = ({ posts, setCate, setCateNum, dispatch }: DropDownType) => {
   // 카테고리 종류 (중복 O)
   let categoryDupList = posts.map((post) => post.category);
 
   // 각 카테고리의 갯수 구하기
-  let elementsNumber = categoryDupList.reduce((a, i) => {
+  interface ok {
+    [a: string]: number;
+  }
+
+  let elementsNumber: ok = categoryDupList.reduce((a: {}, i: string) => {
     return (a[i] = (a[i] || 0) + 1), a;
   }, {});
 
@@ -29,10 +35,15 @@ const DropDown = ({ posts, setCate, setCateNum }: DropDownType) => {
   // 배열로 바꿔준다.
   let ascArr = Object.keys(ascObject);
 
-  const PostClick = (post) => {
+  const PostClick = (post: string) => {
     setCate(() => post);
-    // console.log("post.length", post);
     setCateNum(() => ascObject[post]);
+
+    dispatch({ type: "cate", post });
+    // dispatch({ type:'cateNum', ascObject[post] });
+    // console.log("post.length", post);
+    console.log({ post });
+    console.log({ ascObject });
     console.log("ok", ascObject[post]);
   };
 

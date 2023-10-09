@@ -1,5 +1,5 @@
 import type { InferGetStaticPropsType } from "next";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useReducer, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
 import { DropdownImg, DropupImg, SearchImage } from "public/images";
 import Image from "next/image";
@@ -13,8 +13,39 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [cate, setCate] = useState("");
   const [cateNum, setCateNum] = useState(0);
 
-  // console.log("post length : ", posts.length);
-  // console.log({ posts });
+  type State = {
+    cate: string;
+    cateNum: number;
+  };
+
+  type Action =
+    | { type: "cate"; cate: string }
+    | { type: "cateNum"; cateNum: number };
+
+  const reducer = (state: State, action: Action) => {
+    switch (action.type) {
+      case "cate":
+        return {
+          ...state,
+          cate: action.cate,
+        };
+      case "cateNum":
+        return {
+          ...state,
+          cateNum: action.cateNum,
+        };
+      default:
+        return state;
+    }
+  };
+
+  const initialState = {
+    cate: "",
+    cateNum: 0,
+  };
+
+  const [cateState, dispatch] = useReducer(reducer, initialState);
+  console.log({ cateState });
   const inputSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value.toLowerCase());
   };
@@ -36,7 +67,12 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
           {cate ? cate : "전체"}
           {view && (
             //TODO: setCate 하고 setCateNum useReducer로 묶어보자.
-            <DropDown posts={posts} setCate={setCate} setCateNum={setCateNum} />
+            <DropDown
+              posts={posts}
+              setCate={setCate}
+              setCateNum={setCateNum}
+              dispatch={dispatch}
+            />
           )}
           {view ? (
             <Image src={DropupImg} alt="hi" />
