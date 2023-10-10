@@ -1,20 +1,16 @@
-import { InferGetServerSidePropsType, InferGetStaticPropsType } from "next";
 import { Dispatch, SetStateAction } from "react";
-import { Post, allPosts } from "contentlayer/generated";
-import { getStaticProps } from "src/pages";
+import { Post } from "contentlayer/generated";
+import { Action } from "src/types";
 import styles from "./DropDown.module.scss";
 
 // TODO: 타입 정의가 필요하다.
 interface DropDownType {
   posts: Post[];
-  setCate: Dispatch<SetStateAction<string>>;
-  setCateNum: Dispatch<SetStateAction<number>>;
-  // dispatch: Dispatch<Action>;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch<Action>;
 }
 // InferGetStaticPropsType<typeof getStaticProps>
-// setCate, setCateNum,
-const DropDown = ({ posts, setCate, setCateNum, dispatch }: DropDownType) => {
+
+const DropDown = ({ posts, dispatch }: DropDownType) => {
   // 카테고리 종류 (중복 O)
   let categoryDupList = posts.map((post) => post.category);
 
@@ -36,25 +32,13 @@ const DropDown = ({ posts, setCate, setCateNum, dispatch }: DropDownType) => {
   let ascArr = Object.keys(ascObject);
 
   const PostClick = (post: string) => {
-    setCate(() => post);
-    setCateNum(() => ascObject[post]);
-
-    dispatch({ type: "cate", post });
-    // dispatch({ type:'cateNum', ascObject[post] });
-    // console.log("post.length", post);
-    console.log({ post });
-    console.log({ ascObject });
-    console.log("ok", ascObject[post]);
+    dispatch({ type: "cate", cate: post });
+    dispatch({ type: "cateNum", cateNum: ascObject[post] });
   };
-
-  console.log({ elementsNumber, ascObject, ascArr });
-  // console.log("hi", ascObject.JavaScript);
-  // console.log("ok", ascObject["JavaScript"]);
-  console.log({ ascArr });
 
   return (
     <ul className={styles.cate_list}>
-      <li onClick={() => setCate("")}>전체</li>
+      <li onClick={() => dispatch({ type: "cate", cate: "" })}>전체</li>
       {ascArr.map((post, index) => (
         <li onClick={() => PostClick(post)} key={index}>
           {post}

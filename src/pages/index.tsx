@@ -6,49 +6,19 @@ import Image from "next/image";
 import PostList from "src/components/PostList/PostList";
 import DropDown from "src/components/DropDown/DropDown";
 import styles from "./index.module.scss";
+import { initialState, reducer } from "src/types";
 
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [search, setSearch] = useState("");
   const [view, setView] = useState(false);
-  const [cate, setCate] = useState("");
-  const [cateNum, setCateNum] = useState(0);
-
-  type State = {
-    cate: string;
-    cateNum: number;
-  };
-
-  type Action =
-    | { type: "cate"; cate: string }
-    | { type: "cateNum"; cateNum: number };
-
-  const reducer = (state: State, action: Action) => {
-    switch (action.type) {
-      case "cate":
-        return {
-          ...state,
-          cate: action.cate,
-        };
-      case "cateNum":
-        return {
-          ...state,
-          cateNum: action.cateNum,
-        };
-      default:
-        return state;
-    }
-  };
-
-  const initialState = {
-    cate: "",
-    cateNum: 0,
-  };
 
   const [cateState, dispatch] = useReducer(reducer, initialState);
-  console.log({ cateState });
+
   const inputSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value.toLowerCase());
   };
+
+  const { cate, cateNum } = cateState;
 
   return (
     <div className={styles.home}>
@@ -65,21 +35,12 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
-          {view && (
-            //TODO: setCate 하고 setCateNum useReducer로 묶어보자.
-            <DropDown
-              posts={posts}
-              setCate={setCate}
-              setCateNum={setCateNum}
-              dispatch={dispatch}
-            />
-          )}
+          {view && <DropDown posts={posts} dispatch={dispatch} />}
           {view ? (
             <Image src={DropupImg} alt="hi" />
           ) : (
             <Image src={DropdownImg} alt="ok" />
           )}
-          {/*TODO: posts.length 실시간 변화 시켜야함 */}
           {cateNum ? cateNum : posts.length}
         </div>
       </div>
