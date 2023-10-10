@@ -31,6 +31,11 @@ const DropDown = ({ posts, dispatch }: DropDownType) => {
   // 배열로 바꿔준다.
   let ascArr = Object.keys(ascObject);
 
+  const PostInit = () => {
+    dispatch({ type: "cate", cate: "" });
+    dispatch({ type: "cateNum", cateNum: 0 });
+  };
+
   const PostClick = (post: string) => {
     dispatch({ type: "cate", cate: post });
     dispatch({ type: "cateNum", cateNum: ascObject[post] });
@@ -38,7 +43,7 @@ const DropDown = ({ posts, dispatch }: DropDownType) => {
 
   return (
     <ul className={styles.cate_list}>
-      <li onClick={() => dispatch({ type: "cate", cate: "" })}>전체</li>
+      <li onClick={() => PostInit()}>전체</li>
       {ascArr.map((post, index) => (
         <li onClick={() => PostClick(post)} key={index}>
           {post}
