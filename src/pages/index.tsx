@@ -1,37 +1,29 @@
 import type { InferGetStaticPropsType } from "next";
 import { ChangeEvent, useReducer, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
-import { DropdownImg, DropupImg, SearchImage } from "public/images";
+import { useSelector } from "react-redux";
+import { RootState } from "src/redux/configureStore";
+import { initialState, reducer } from "src/types";
 import Image from "next/image";
+import { DropdownImg, DropupImg, SearchImage } from "public/images";
 import PostList from "src/components/PostList/PostList";
 import DropDown from "src/components/DropDown/DropDown";
+import SearchInput from "src/components/SearchInput/SearchInput";
 import styles from "./index.module.scss";
-import { initialState, reducer } from "src/types";
 
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const [search, setSearch] = useState("");
+  const search = useSelector((state: RootState) => state.search);
   const [view, setView] = useState(false);
 
   const [cateState, dispatch] = useReducer(reducer, initialState);
 
-  const inputSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value.toLowerCase());
-  };
-
   const { cate, cateNum } = cateState;
 
+  console.log("in", search);
   return (
     <div className={styles.home}>
       <h1>Blog</h1>
-      <div className={styles.search_container}>
-        <input
-          onChange={inputSearch}
-          className={styles.search_input}
-          type="text"
-          placeholder="검색어를 입력해주세요."
-        />
-        <Image className={styles.search_img} src={SearchImage} alt="돋보기" />
-      </div>
+      <SearchInput />
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
