@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { Post } from "contentlayer/generated";
-import { Action } from "src/types";
+import { Action } from "src/reducers/categoryReducer";
 import styles from "./DropDown.module.scss";
 
 // TODO: 타입 정의가 필요하다.

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        Copyright ©2023 minmo All rights reserved.
+        <p>Copyright ©2023 minmo All rights reserved.</p>
       </div>
     </footer>
   );
