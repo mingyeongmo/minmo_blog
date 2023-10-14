@@ -1,25 +1,39 @@
 import type { InferGetStaticPropsType } from "next";
-import { ChangeEvent, useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
-import { initialState, reducer } from "src/types";
+import { initialState, reducer } from "src/reducers/categoryReducer";
+import { PostList, DropDown, SearchInput, Pagination } from "src/components";
 import Image from "next/image";
-import { DropdownImg, DropupImg, SearchImage } from "public/images";
-import PostList from "src/components/PostList/PostList";
-import DropDown from "src/components/DropDown/DropDown";
-import SearchInput from "src/components/SearchInput/SearchInput";
+import { DropdownImg, DropupImg } from "public/images";
 import styles from "./index.module.scss";
 
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const search = useSelector((state: RootState) => state.search);
+  const search = useSelector(
+    (state: RootState) => state.search
+  ) as unknown as string;
   const [view, setView] = useState(false);
 
   const [cateState, dispatch] = useReducer(reducer, initialState);
-
   const { cate, cateNum } = cateState;
 
-  console.log("in", search);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxPage, setMaxPage] = useState(1);
+
+  useEffect(() => {
+    setMaxPage((maxPage) => maxPage + Math.floor(posts.length / 5));
+  }, []);
+
+  console.log(posts.length);
+
+  const firstPostIndex = (currentPage - 1) * 5;
+  const lastPostIndex = firstPostIndex + 5;
+  const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+
+  console.log({ maxPage });
+  console.log({ currentPosts });
+
   return (
     <div className={styles.home}>
       <h1>Blog</h1>
@@ -37,13 +51,18 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         </div>
       </div>
       <PostList
-        posts={(posts as Post[]).filter(
+        posts={(currentPosts as Post[]).filter(
           (post) =>
             // 제목 또는 내용
             (post.title.toLowerCase().includes(search) ||
               post.description.toLowerCase().includes(search)) &&
             post.category.includes(cate)
         )}
+      />
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        maxPage={maxPage}
       />
     </div>
   );
