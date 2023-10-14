@@ -6,11 +6,11 @@ import styles from "./DropDown.module.scss";
 // TODO: 타입 정의가 필요하다.
 interface DropDownType {
   posts: Post[];
+  setCurrentPage: Dispatch<SetStateAction<number>>;
   dispatch: Dispatch<Action>;
 }
-// InferGetStaticPropsType<typeof getStaticProps>
 
-const DropDown = ({ posts, dispatch }: DropDownType) => {
+const DropDown = ({ posts, setCurrentPage, dispatch }: DropDownType) => {
   // 카테고리 종류 (중복 O)
   let categoryDupList = posts.map((post) => post.category);
 
@@ -32,13 +32,20 @@ const DropDown = ({ posts, dispatch }: DropDownType) => {
   let ascArr = Object.keys(ascObject);
 
   const PostInit = () => {
+    setCurrentPage(() => 1);
     dispatch({ type: "cate", cate: "" });
     dispatch({ type: "cateNum", cateNum: 0 });
+    dispatch({ type: "catePost", catePost: [] });
   };
 
   const PostClick = (post: string) => {
+    setCurrentPage(() => 1);
     dispatch({ type: "cate", cate: post });
     dispatch({ type: "cateNum", cateNum: ascObject[post] });
+
+    const catePost = posts.filter((state) => state.category === post);
+
+    dispatch({ type: "catePost", catePost });
   };
 
   return (

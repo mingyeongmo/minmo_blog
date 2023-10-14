@@ -1,11 +1,15 @@
+import { Post } from "contentlayer/generated";
+
 export type State = {
   cate: string;
   cateNum: number;
+  catePost: Post[];
 };
 
 export type Action =
   | { type: "cate"; cate: string }
-  | { type: "cateNum"; cateNum: number };
+  | { type: "cateNum"; cateNum: number }
+  | { type: "catePost"; catePost: Post[] };
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -19,6 +23,11 @@ export const reducer = (state: State, action: Action) => {
         ...state,
         cateNum: action.cateNum,
       };
+    case "catePost":
+      return {
+        ...state,
+        catePost: action.catePost,
+      };
     default:
       return state;
   }
@@ -27,4 +36,5 @@ export const reducer = (state: State, action: Action) => {
 export const initialState = {
   cate: "",
   cateNum: 0,
+  catePost: [],
 };
