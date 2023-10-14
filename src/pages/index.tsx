@@ -15,24 +15,19 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   ) as unknown as string;
   const [view, setView] = useState(false);
 
-  const [cateState, dispatch] = useReducer(reducer, initialState);
-  const { cate, cateNum } = cateState;
-
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState(1);
+
+  const [cateState, dispatch] = useReducer(reducer, initialState);
+  const { cate, cateNum, catePost } = cateState;
 
   useEffect(() => {
     setMaxPage((maxPage) => maxPage + Math.floor(posts.length / 5));
   }, []);
 
-  console.log(posts.length);
-
   const firstPostIndex = (currentPage - 1) * 5;
   const lastPostIndex = firstPostIndex + 5;
   const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
-
-  console.log({ maxPage });
-  console.log({ currentPosts });
 
   return (
     <div className={styles.home}>
@@ -41,7 +36,13 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
-          {view && <DropDown posts={posts} dispatch={dispatch} />}
+          {view && (
+            <DropDown
+              posts={posts}
+              setCurrentPage={setCurrentPage}
+              dispatch={dispatch}
+            />
+          )}
           {view ? (
             <Image src={DropupImg} alt="hi" />
           ) : (
@@ -51,12 +52,13 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         </div>
       </div>
       <PostList
-        posts={(currentPosts as Post[]).filter(
+        posts={(
+          (catePost.length === 0 ? currentPosts : catePost) as Post[]
+        ).filter(
           (post) =>
             // 제목 또는 내용
-            (post.title.toLowerCase().includes(search) ||
-              post.description.toLowerCase().includes(search)) &&
-            post.category.includes(cate)
+            post.title.toLowerCase().includes(search) ||
+            post.description.toLowerCase().includes(search)
         )}
       />
       <Pagination
