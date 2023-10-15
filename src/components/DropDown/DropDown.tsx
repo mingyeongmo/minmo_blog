@@ -1,16 +1,21 @@
 import { Dispatch, SetStateAction } from "react";
 import { Post } from "contentlayer/generated";
-import { Action } from "src/reducers/categoryReducer";
+import { useDispatch } from "react-redux";
+import {
+  setCate,
+  setCateNum,
+  setCatePost,
+} from "src/redux/modules/categorySlice";
 import styles from "./DropDown.module.scss";
 
 // TODO: 타입 정의가 필요하다.
 interface DropDownType {
   posts: Post[];
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  dispatch: Dispatch<Action>;
 }
 
-const DropDown = ({ posts, setCurrentPage, dispatch }: DropDownType) => {
+const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
+  const dispatch = useDispatch();
   // 카테고리 종류 (중복 O)
   let categoryDupList = posts.map((post) => post.category);
 
@@ -33,19 +38,18 @@ const DropDown = ({ posts, setCurrentPage, dispatch }: DropDownType) => {
 
   const PostInit = () => {
     setCurrentPage(() => 1);
-    dispatch({ type: "cate", cate: "" });
-    dispatch({ type: "cateNum", cateNum: 0 });
-    dispatch({ type: "catePost", catePost: [] });
+    dispatch(setCate(""));
+    dispatch(setCateNum(0));
+    dispatch(setCatePost([]));
   };
 
   const PostClick = (post: string) => {
     setCurrentPage(() => 1);
-    dispatch({ type: "cate", cate: post });
-    dispatch({ type: "cateNum", cateNum: ascObject[post] });
-
+    dispatch(setCate(post));
+    dispatch(setCateNum(ascObject[post]));
     const catePost = posts.filter((state) => state.category === post);
 
-    dispatch({ type: "catePost", catePost });
+    dispatch(setCatePost(catePost));
   };
 
   return (
