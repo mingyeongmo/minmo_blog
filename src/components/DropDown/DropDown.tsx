@@ -40,7 +40,7 @@ const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
     setCurrentPage(() => 1);
     dispatch(setCate(""));
     dispatch(setCateNum(0));
-    dispatch(setCatePost([]));
+    dispatch(setCatePost(posts));
   };
 
   const PostClick = (post: string) => {

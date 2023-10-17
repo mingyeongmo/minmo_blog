@@ -16,7 +16,6 @@ const Pagination = ({
   for (let i = 0; i < pageArr.length; i++) {
     pageArr[i] = i + 1;
   }
-  console.log({ pageArr });
 
   const onClick = (arr: number) => {
     setCurrentPage(() => arr);
@@ -26,7 +25,7 @@ const Pagination = ({
     <div className={styles.pagination}>
       <p>{"<"}</p>
       {pageArr.map((arr: number) => (
-        <button onClick={() => onClick(arr)} key={arr}>
+        <button className={styles.btn} onClick={() => onClick(arr)} key={arr}>
           {arr}
         </button>
       ))}

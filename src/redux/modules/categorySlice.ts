@@ -4,6 +4,7 @@ const initialState = {
   cate: "",
   cateNum: 0,
   catePost: [],
+  viewPost: [],
 };
 
 const categorySlice = createSlice({
@@ -19,8 +20,13 @@ const categorySlice = createSlice({
     setCatePost: (state, action) => {
       state.catePost = action.payload;
     },
+    setViewPost: (state, action) => {
+      state.viewPost = action.payload;
+      console.log("action.payload", action.payload);
+    },
   },
 });
 
-export const { setCate, setCateNum, setCatePost } = categorySlice.actions;
+export const { setCate, setCateNum, setCatePost, setViewPost } =
+  categorySlice.actions;
 export default categorySlice.reducer;

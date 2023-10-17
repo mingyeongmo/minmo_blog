@@ -6,6 +6,7 @@ interface PostsProps {
 }
 
 const PostList = ({ posts }: PostsProps) => {
+  // console.log("postlist", { posts });
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       {posts.map((post) => (

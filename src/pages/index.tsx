@@ -1,7 +1,8 @@
 import type { InferGetStaticPropsType } from "next";
 import { useEffect, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCatePost, setViewPost } from "src/redux/modules/categorySlice";
 import { RootState } from "src/redux/configureStore";
 import { PostList, DropDown, SearchInput, Pagination } from "src/components";
 import Image from "next/image";
@@ -9,15 +10,13 @@ import { DropdownImg, DropupImg } from "public/images";
 import styles from "./index.module.scss";
 
 const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const search = useSelector((state: RootState) => {
-    return state.search.search;
-  }) as unknown as string;
-
   const category = useSelector((state: RootState) => {
     return state.category;
   });
 
-  const { cate, cateNum, catePost } = category;
+  const dispatch = useDispatch();
+
+  const { cate, cateNum, catePost, viewPost } = category;
 
   const [view, setView] = useState(false);
 
@@ -25,14 +24,16 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [maxPage, setMaxPage] = useState(1);
 
   useEffect(() => {
+    dispatch(setCatePost(posts));
+    dispatch(setViewPost(posts));
     setMaxPage((maxPage) => maxPage + Math.floor(posts.length / 5));
   }, []);
 
   const firstPostIndex = (currentPage - 1) * 5;
   const lastPostIndex = firstPostIndex + 5;
-  const currentPosts = posts.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = viewPost.slice(firstPostIndex, lastPostIndex);
 
-  console.log({ posts, catePost, currentPosts });
+  console.log({ viewPost });
 
   return (
     <div className={styles.home}>
@@ -43,22 +44,21 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
           {cate ? cate : "전체"}
           {view && <DropDown posts={posts} setCurrentPage={setCurrentPage} />}
           {view ? (
-            <Image src={DropupImg} alt="hi" />
+            <Image src={DropupImg} alt="drop-up" />
           ) : (
-            <Image src={DropdownImg} alt="ok" />
+            <Image src={DropdownImg} alt="drop-down" />
           )}
-          {cateNum ? cateNum : posts.length}
+          {cateNum ? cateNum : catePost.length}
         </div>
       </div>
       <PostList
-        posts={(
-          (catePost.length === 0 ? currentPosts : catePost) as Post[]
-        ).filter(
-          (post) =>
-            // 제목 또는 내용
-            post.title.toLowerCase().includes(search) ||
-            post.description.toLowerCase().includes(search)
-        )}
+        // posts={(currentPosts as Post[]).filter(
+        //   (post) =>
+        //     // 제목 또는 내용
+        // post.title.toLowerCase().includes(search) ||
+        // post.description.toLowerCase().includes(search)
+        // )}
+        posts={currentPosts}
       />
       <Pagination
         currentPage={currentPage}
