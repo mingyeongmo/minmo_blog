@@ -5,6 +5,7 @@ import {
   setCate,
   setCateNum,
   setCatePost,
+  setViewPost,
 } from "src/redux/modules/categorySlice";
 import styles from "./DropDown.module.scss";
 
@@ -40,7 +41,8 @@ const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
     setCurrentPage(() => 1);
     dispatch(setCate(""));
     dispatch(setCateNum(0));
-    dispatch(setCatePost(posts));
+    // dispatch(setCatePost(posts));
+    dispatch(setViewPost(posts));
   };
 
   const PostClick = (post: string) => {
@@ -49,7 +51,8 @@ const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
     dispatch(setCateNum(ascObject[post]));
     const catePost = posts.filter((state) => state.category === post);
 
-    dispatch(setCatePost(catePost));
+    // dispatch(setCatePost(catePost));
+    dispatch(setViewPost(catePost));
   };
 
   return (

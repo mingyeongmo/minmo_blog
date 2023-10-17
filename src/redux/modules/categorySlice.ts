@@ -22,7 +22,6 @@ const categorySlice = createSlice({
     },
     setViewPost: (state, action) => {
       state.viewPost = action.payload;
-      console.log("action.payload", action.payload);
     },
   },
 });

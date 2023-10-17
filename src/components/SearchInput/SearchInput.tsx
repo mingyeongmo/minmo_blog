@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { inputSearch } from "src/redux/modules/searchSlice";
 import Image from "next/image";
@@ -12,7 +12,12 @@ import {
   setViewPost,
 } from "src/redux/modules/categorySlice";
 
-const SearchInput = () => {
+interface SearchInput {
+  posts: Post[];
+}
+
+const SearchInput = (posts: SearchInput) => {
+  console.log("ok", posts);
   const search = useSelector((state: RootState) => {
     return state.search.search;
   }) as unknown as string;
@@ -23,19 +28,20 @@ const SearchInput = () => {
 
   const { catePost } = category;
 
-  const Post = (catePost as Post[]).filter(
+  const Post = posts.posts.filter(
     (post) =>
       post.title.toLowerCase().includes(search) ||
       post.description.toLowerCase().includes(search)
   );
-  console.log("Post", Post);
+
+  useEffect(() => {
+    dispatch(setViewPost(Post));
+  }, [search]);
 
   const dispatch = useDispatch();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(inputSearch(e.target.value.toLowerCase()));
-    dispatch(setViewPost(Post));
-    console.log("흠");
   };
 
   return (

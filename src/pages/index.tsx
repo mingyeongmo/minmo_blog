@@ -34,11 +34,12 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const currentPosts = viewPost.slice(firstPostIndex, lastPostIndex);
 
   console.log({ viewPost });
+  console.log("in", posts, catePost);
 
   return (
     <div className={styles.home}>
       <h1>Blog</h1>
-      <SearchInput />
+      <SearchInput posts={posts} />
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
