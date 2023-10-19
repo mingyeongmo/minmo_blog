@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Post } from "contentlayer/generated";
 import BlogPost from "../BlogPost/BlogPost";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,10 @@ import { setPostLength } from "src/redux/modules/categorySlice";
 interface PostsProps {
   posts: Post[];
   currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
-const PostList = ({ posts, currentPage }: PostsProps) => {
+const PostList = ({ posts, currentPage, setCurrentPage }: PostsProps) => {
   const [post, setPost] = useState(posts);
   const dispatch = useDispatch();
   const search = useSelector((state: RootState) => {
@@ -33,6 +34,7 @@ const PostList = ({ posts, currentPage }: PostsProps) => {
     });
     setPost(filterPost);
     dispatch(setPostLength(filterPost.length));
+    setCurrentPage(() => 1);
   }, [cate, search]);
 
   const firstPostIndex = (currentPage - 1) * 5;

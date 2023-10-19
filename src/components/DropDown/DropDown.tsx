@@ -34,12 +34,10 @@ const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
   let ascArr = Object.keys(ascObject);
 
   const PostInit = () => {
-    setCurrentPage(() => 1);
     dispatch(setCate(""));
   };
 
   const PostClick = (post: string) => {
-    setCurrentPage(() => 1);
     dispatch(setCate(post));
   };
 
