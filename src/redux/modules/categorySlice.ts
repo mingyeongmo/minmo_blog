@@ -2,9 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   cate: "",
-  cateNum: 0,
-  catePost: [],
-  viewPost: [],
+  postLength: 0,
 };
 
 const categorySlice = createSlice({
@@ -14,18 +12,11 @@ const categorySlice = createSlice({
     setCate: (state, action) => {
       state.cate = action.payload;
     },
-    setCateNum: (state, action) => {
-      state.cateNum = action.payload;
-    },
-    setCatePost: (state, action) => {
-      state.catePost = action.payload;
-    },
-    setViewPost: (state, action) => {
-      state.viewPost = action.payload;
+    setPostLength: (state, action) => {
+      state.postLength = action.payload;
     },
   },
 });
 
-export const { setCate, setCateNum, setCatePost, setViewPost } =
-  categorySlice.actions;
+export const { setCate, setPostLength } = categorySlice.actions;
 export default categorySlice.reducer;

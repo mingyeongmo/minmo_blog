@@ -1,8 +1,7 @@
 import type { InferGetStaticPropsType } from "next";
 import { useEffect, useState } from "react";
 import { Post, allPosts } from "contentlayer/generated";
-import { useDispatch, useSelector } from "react-redux";
-import { setCatePost, setViewPost } from "src/redux/modules/categorySlice";
+import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
 import { PostList, DropDown, SearchInput, Pagination } from "src/components";
 import Image from "next/image";
@@ -14,9 +13,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return state.category;
   });
 
-  const dispatch = useDispatch();
-
-  const { cate, cateNum, catePost, viewPost } = category;
+  const { cate, postLength } = category;
 
   const [view, setView] = useState(false);
 
@@ -24,22 +21,13 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [maxPage, setMaxPage] = useState(1);
 
   useEffect(() => {
-    dispatch(setCatePost(posts));
-    dispatch(setViewPost(posts));
     setMaxPage((maxPage) => maxPage + Math.floor(posts.length / 5));
   }, []);
-
-  const firstPostIndex = (currentPage - 1) * 5;
-  const lastPostIndex = firstPostIndex + 5;
-  const currentPosts = viewPost.slice(firstPostIndex, lastPostIndex);
-
-  console.log({ viewPost });
-  console.log("in", posts, catePost);
 
   return (
     <div className={styles.home}>
       <h1>Blog</h1>
-      <SearchInput posts={posts} />
+      <SearchInput />
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
@@ -49,18 +37,10 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
           ) : (
             <Image src={DropdownImg} alt="drop-down" />
           )}
-          {cateNum ? cateNum : catePost.length}
+          {postLength}
         </div>
       </div>
-      <PostList
-        // posts={(currentPosts as Post[]).filter(
-        //   (post) =>
-        //     // 제목 또는 내용
-        // post.title.toLowerCase().includes(search) ||
-        // post.description.toLowerCase().includes(search)
-        // )}
-        posts={currentPosts}
-      />
+      <PostList posts={posts} currentPage={currentPage} />
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
