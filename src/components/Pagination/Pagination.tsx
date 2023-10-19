@@ -1,17 +1,19 @@
 import { Dispatch, SetStateAction } from "react";
 import styles from "./Pagination.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "src/redux/configureStore";
 
 interface PaginationType {
-  currentPage: number;
   setCurrentPage: Dispatch<SetStateAction<number>>;
-  maxPage: number;
 }
 
-const Pagination = ({
-  currentPage,
-  setCurrentPage,
-  maxPage,
-}: PaginationType) => {
+const Pagination = ({ setCurrentPage }: PaginationType) => {
+  const postLength = useSelector((state: RootState) => {
+    return state.category.postLength;
+  });
+
+  const maxPage = 1 + Math.floor(postLength / 5);
+
   let pageArr = new Array(maxPage);
   for (let i = 0; i < pageArr.length; i++) {
     pageArr[i] = i + 1;

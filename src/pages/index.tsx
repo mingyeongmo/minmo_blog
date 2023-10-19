@@ -18,11 +18,6 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [view, setView] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(1);
-
-  useEffect(() => {
-    setMaxPage((maxPage) => maxPage + Math.floor(posts.length / 5));
-  }, []);
 
   return (
     <div className={styles.home}>
@@ -40,12 +35,12 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
           {postLength}
         </div>
       </div>
-      <PostList posts={posts} currentPage={currentPage} />
-      <Pagination
+      <PostList
+        posts={posts}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
-        maxPage={maxPage}
       />
+      <Pagination setCurrentPage={setCurrentPage} />
     </div>
   );
 };
