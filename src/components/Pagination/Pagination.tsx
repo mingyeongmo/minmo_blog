@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import styles from "./Pagination.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
+import styles from "./Pagination.module.scss";
 
 interface PaginationType {
   setCurrentPage: Dispatch<SetStateAction<number>>;

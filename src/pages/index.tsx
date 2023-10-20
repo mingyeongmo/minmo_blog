@@ -1,6 +1,6 @@
 import type { InferGetStaticPropsType } from "next";
 import { useState } from "react";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from ".contentlayer/generated";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
 import { PostList, DropDown, SearchInput, Pagination } from "src/components";

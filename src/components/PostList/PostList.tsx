@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Post } from "contentlayer/generated";
+import { Post } from ".contentlayer/generated";
 import BlogPost from "../BlogPost/BlogPost";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
