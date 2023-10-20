@@ -16,7 +16,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "contentlayer/generated": [".contentlayer/generated"]
+      "@/contentlayer/generated": ["./.contentlayer/generated"],
+      "@/contentlayer/generated/*": ["./.contentlayer/generated/*"]
     }
   },
   "include": [
@@ -24,7 +25,7 @@
     "**/*.ts",
     "**/*.tsx",
     "contentlayer.config.ts",
-    ".contentlayer/generated"
+    "./.contentlayer/generated"
   ],
   "exclude": ["node_modules"]
 }
