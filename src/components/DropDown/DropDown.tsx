@@ -1,5 +1,5 @@
-import { Post } from "@/contentlayer/generated";
 import { useDispatch } from "react-redux";
+import { Post } from "@/contentlayer/generated";
 import { setCate } from "src/redux/modules/categorySlice";
 import styles from "./DropDown.module.scss";
 
