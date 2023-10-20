@@ -26,7 +26,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
-          {view && <DropDown posts={posts} />}
+          {/* {view && <DropDown posts={posts} />} */}
           {view ? (
             <Image src={DropupImg} alt="drop-up" />
           ) : (
