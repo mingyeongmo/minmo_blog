@@ -1,6 +1,6 @@
 import type { InferGetStaticPropsType } from "next";
-import { useEffect, useState } from "react";
-import { Post, allPosts } from "contentlayer/generated";
+import { useState } from "react";
+import { allPosts } from "contentlayer/generated";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
 import { PostList, DropDown, SearchInput, Pagination } from "src/components";
@@ -26,7 +26,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <div className={styles.dropdown_menu}>
         <div onClick={() => setView(!view)} className={styles.category}>
           {cate ? cate : "전체"}
-          {view && <DropDown posts={posts} setCurrentPage={setCurrentPage} />}
+          {view && <DropDown posts={posts} />}
           {view ? (
             <Image src={DropupImg} alt="drop-up" />
           ) : (

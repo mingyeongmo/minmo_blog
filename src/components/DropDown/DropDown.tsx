@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import { Post } from "contentlayer/generated";
 import { useDispatch } from "react-redux";
 import { setCate } from "src/redux/modules/categorySlice";
@@ -7,10 +6,9 @@ import styles from "./DropDown.module.scss";
 // TODO: 타입 정의가 필요하다.
 interface DropDownType {
   posts: Post[];
-  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
-const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
+const DropDown = ({ posts }: DropDownType) => {
   const dispatch = useDispatch();
 
   // 카테고리 종류 (중복 O)
@@ -21,7 +19,7 @@ const DropDown = ({ posts, setCurrentPage }: DropDownType) => {
     [a: string]: number;
   }
 
-  let elementsNumber: ok = categoryDupList.reduce((a: {}, i: string) => {
+  let elementsNumber: ok = categoryDupList.reduce((a: any, i: string) => {
     return (a[i] = (a[i] || 0) + 1), a;
   }, {});
 
