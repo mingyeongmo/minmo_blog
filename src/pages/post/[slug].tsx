@@ -1,11 +1,6 @@
-import {
-  InferGetStaticPropsType,
-  GetStaticPaths,
-  GetStaticProps,
-  GetStaticPropsContext,
-} from "next";
-import { allPosts } from "@/contentlayer/generated";
+import { InferGetStaticPropsType, GetStaticPaths, GetStaticProps } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import { Post, allPosts } from "@/contentlayer/generated";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -16,8 +11,8 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
       <header className={styles.header}>
         <h1>{post?.title}</h1>
         <div className={styles.test}>
-          <p>{post.category}</p>
-          <p>{post.date}</p>
+          <p>{post?.category}</p>
+          <p>{post?.date}</p>
         </div>
       </header>
       <MDXComponent />
@@ -25,22 +20,30 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   );
 };
 
+export default Post;
+
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: allPosts.map((p) => ({ params: { slug: p._raw.flattenedPath } })),
+    paths: allPosts.map(({ _raw }) => ({
+      params: {
+        slug: _raw.flattenedPath,
+      },
+    })),
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({
-  params,
-}: GetStaticPropsContext) => {
-  const post = allPosts.find((p) => p._raw.flattenedPath === params?.slug);
+export const getStaticProps: GetStaticProps<{
+  post: Post | undefined;
+}> = async ({ params }) => {
+  const postId = String(params?.slug || "");
+  const post = allPosts.find(({ _raw }) => {
+    return _raw.flattenedPath === postId;
+  });
+
   return {
     props: {
       post,
     },
   };
 };
-
-export default Post;
