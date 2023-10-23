@@ -1,6 +1,7 @@
 import { InferGetStaticPropsType, GetStaticPaths, GetStaticProps } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import { Post, allPosts } from "@/contentlayer/generated";
+import { allPosts } from "@/contentlayer/generated";
+import { Post } from "@/contentlayer/generated/types";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
