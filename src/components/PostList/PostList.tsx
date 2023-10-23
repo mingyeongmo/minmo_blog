@@ -1,5 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Post } from "@/contentlayer/generated/types";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { Post } from "@/contentlayer/generated";
 import BlogPost from "../BlogPost/BlogPost";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
@@ -24,6 +30,10 @@ const PostList = ({ posts, currentPage, setCurrentPage }: PostsProps) => {
 
   const { cate } = category;
 
+  const updateCurrentPage = useCallback(() => {
+    setCurrentPage(1);
+  }, [setCurrentPage]);
+
   useEffect(() => {
     const filterPost = posts.filter((post) => {
       const searchd =
@@ -34,8 +44,8 @@ const PostList = ({ posts, currentPage, setCurrentPage }: PostsProps) => {
     });
     setPost(filterPost);
     dispatch(setPostLength(filterPost.length));
-    setCurrentPage(() => 1);
-  }, [cate, search]);
+    updateCurrentPage();
+  }, [cate, search, posts]);
 
   const firstPostIndex = (currentPage - 1) * 5;
   const lastPostIndex = firstPostIndex + 5;

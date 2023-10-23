@@ -28,7 +28,7 @@ const BlogPost = ({
               <h3 className={styles.post_title}>{title}</h3>
               <p className={styles.post_des}>{des}</p>
             </div>
-            <img
+            <Image
               className={styles.post_thumbnail}
               src={thumbnail}
               alt="thumbnail"
