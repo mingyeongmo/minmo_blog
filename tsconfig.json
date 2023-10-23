@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -24,7 +24,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "contentlayer.config.ts",
     "./.contentlayer/generated",
     "src"
   ],

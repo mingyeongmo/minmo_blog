@@ -6,12 +6,20 @@ import {
 } from "next";
 import { allPosts } from "@/contentlayer/generated";
 import { useMDXComponent } from "next-contentlayer/hooks";
+import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const MDXComponent = useMDXComponent(post?.body.code || "");
+  console.log({ post });
   return (
     <div>
-      <h1>{post?.title}</h1>
+      <header className={styles.header}>
+        <h1>{post?.title}</h1>
+        <div className={styles.test}>
+          <p>{post.category}</p>
+          <p>{post.date}</p>
+        </div>
+      </header>
       <MDXComponent />
     </div>
   );
