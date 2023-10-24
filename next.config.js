@@ -11,7 +11,8 @@ const contentlayerConfig = withContentlayer(nextConfig);
 module.exports = {
   ...contentlayerConfig,
   images: {
-    loader: "imgix",
-    path: "minmo.vercel.app",
+    // loader: "imgix",
+    // path: "minmo.vercel.app",
+    domains: ["blog.kakaocdn.net"],
   },
 };
