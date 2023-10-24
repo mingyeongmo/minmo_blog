@@ -45,7 +45,7 @@ const PostList = ({ posts, currentPage, setCurrentPage }: PostsProps) => {
     setPost(filterPost);
     dispatch(setPostLength(filterPost.length));
     updateCurrentPage();
-  }, [cate, search, posts]);
+  }, [cate, search, posts, dispatch, updateCurrentPage]);
 
   const firstPostIndex = (currentPage - 1) * 5;
   const lastPostIndex = firstPostIndex + 5;
