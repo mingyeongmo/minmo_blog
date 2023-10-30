@@ -3,7 +3,12 @@ import { useState } from "react";
 import { allPosts } from "@/contentlayer/generated";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
-import { PostList, DropDown, SearchInput, Pagination } from "src/components";
+import {
+  PostList,
+  DropDown,
+  SearchInput,
+  Pagination,
+} from "src/components/Modules/Home";
 import Image from "next/image";
 import { DropdownImg, DropupImg } from "public/images";
 import styles from "./index.module.scss";

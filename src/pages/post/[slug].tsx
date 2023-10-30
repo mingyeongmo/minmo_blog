@@ -1,20 +1,31 @@
 import { InferGetStaticPropsType, GetStaticPaths, GetStaticProps } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
-import { allPosts } from "@/contentlayer/generated";
-import { Post } from "@/contentlayer/generated/types";
+import { allPosts, Post } from "@/contentlayer/generated";
+import {
+  PostTitle,
+  PostSubInfo,
+  PostThumbnail,
+} from "src/components/Modules/Post";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const MDXComponent = useMDXComponent(post?.body.code || "");
   console.log({ post });
+
+  const src: string = post?.thumbnail || "";
+
   return (
     <div>
       <header className={styles.header}>
-        <h1>{post?.title}</h1>
-        <div className={styles.test}>
-          <p>{post?.category}</p>
-          <p>{post?.date}</p>
-        </div>
+        <PostTitle title={post?.title || ""} />
+        <PostSubInfo
+          category={post?.category || ""}
+          date={post?.date || ""}
+        ></PostSubInfo>
+        {/* <PostThumbnail
+          thumbnail={post?.thumbnail || ""}
+          alt={post?.title || ""}
+        /> */}
       </header>
       <MDXComponent />
     </div>
