@@ -22,10 +22,10 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
           category={post?.category || ""}
           date={post?.date || ""}
         ></PostSubInfo>
-        {/* <PostThumbnail
+        <PostThumbnail
           thumbnail={post?.thumbnail || ""}
           alt={post?.title || ""}
-        /> */}
+        />
       </header>
       <MDXComponent />
     </div>

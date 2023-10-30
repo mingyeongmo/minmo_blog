@@ -6,8 +6,7 @@ type PostThumbnail = {
 };
 
 const PostThumbnail = ({ thumbnail, alt }: PostThumbnail) => {
-  console.log({ thumbnail });
-  return <Image src={thumbnail} alt={alt} width={300} />;
+  return <Image src={thumbnail} alt={alt} width={300} height={300} />;
 };
 
 export default PostThumbnail;
