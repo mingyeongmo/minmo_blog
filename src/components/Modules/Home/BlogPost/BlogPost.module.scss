@@ -1,3 +1,5 @@
+@import "common/common.scss";
+
 .post_box {
   width: 700px;
   height: 160px;
@@ -19,21 +21,21 @@
       color: black;
 
       .post_date {
-        font-size: 14px;
+        font-size: $font-size14;
       }
 
       .post_title {
-        font-size: 18px;
+        font-size: $font-size18;
       }
 
       .post_des {
-        font-size: 16px;
+        font-size: $font-size16;
       }
     }
   }
   .post_category {
-    font-size: 16px;
-    color: #ed7458;
+    font-size: $font-size16;
+    color: $orange;
     font-weight: 800;
   }
 }

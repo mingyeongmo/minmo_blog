@@ -1,3 +1,5 @@
+import styles from "./style.module.scss";
+
 type PostSubInfoProps = {
   category: string;
   date: string;
@@ -5,7 +7,7 @@ type PostSubInfoProps = {
 
 const PostSubInfo = ({ category, date }: PostSubInfoProps) => {
   return (
-    <div>
+    <div className={styles.flex}>
       <p>{category}</p>
       <p>{date}</p>
     </div>
