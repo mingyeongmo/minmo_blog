@@ -12,21 +12,19 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const MDXComponent = useMDXComponent(post?.body.code || "");
   console.log({ post });
 
-  const src: string = post?.thumbnail || "";
-
   return (
-    <div>
+    <div className={styles.blog_container}>
       <header className={styles.header}>
         <PostTitle title={post?.title || ""} />
         <PostSubInfo
           category={post?.category || ""}
           date={post?.date || ""}
         ></PostSubInfo>
-        <PostThumbnail
-          thumbnail={post?.thumbnail || ""}
-          alt={post?.title || ""}
-        />
       </header>
+      <PostThumbnail
+        thumbnail={post?.thumbnail || ""}
+        alt={post?.title || ""}
+      />
       <MDXComponent />
     </div>
   );

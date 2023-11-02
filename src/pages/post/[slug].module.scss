@@ -1,5 +1,10 @@
-.header {
-  .test {
+.blog_container {
+  width: 80%;
+  .header {
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    margin-bottom: 30px;
   }
 }

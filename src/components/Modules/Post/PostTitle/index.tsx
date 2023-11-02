@@ -3,7 +3,7 @@ type PostTitleProps = {
 };
 
 const PostTitle = ({ title }: PostTitleProps) => {
-  return <h1>{title}</h1>;
+  return <h1 style={{ fontSize: "40px" }}>{title}</h1>;
 };
 
 export default PostTitle;
