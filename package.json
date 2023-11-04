@@ -10,6 +10,7 @@
     "deploy": "contentlayer build && next build"
   },
   "dependencies": {
+    "@giscus/react": "^2.3.0",
     "@reduxjs/toolkit": "^1.9.7",
     "contentlayer": "^0.3.4",
     "next": "13.4.12",

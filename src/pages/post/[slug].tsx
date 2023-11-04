@@ -5,11 +5,13 @@ import {
   PostTitle,
   PostSubInfo,
   PostThumbnail,
+  PostContent,
 } from "src/components/Modules/Post";
+import Comment from "src/components/Library/Comment";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const MDXComponent = useMDXComponent(post?.body.code || "");
+  // const MDXComponent = useMDXComponent(post?.body.code || "");
   console.log({ post });
 
   return (
@@ -25,7 +27,9 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
         thumbnail={post?.thumbnail || ""}
         alt={post?.title || ""}
       />
-      <MDXComponent />
+      <PostContent code={post?.body.code || ""} />
+      <Comment />
+      {/* <MDXComponent /> */}
     </div>
   );
 };
