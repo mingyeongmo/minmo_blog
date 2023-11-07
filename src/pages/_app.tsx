@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import store from "src/redux/configureStore";
 import Layout from "src/common/layout/Layout";
 import Head from "next/head";
+import "../common/style/index.scss";
 import "../common/style/reset.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {

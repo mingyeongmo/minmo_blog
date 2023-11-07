@@ -1,5 +1,4 @@
 import { InferGetStaticPropsType, GetStaticPaths, GetStaticProps } from "next";
-import { useMDXComponent } from "next-contentlayer/hooks";
 import { allPosts, Post } from "@/contentlayer/generated";
 import {
   PostTitle,
@@ -11,7 +10,6 @@ import Comment from "src/components/Library/Comment";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  // const MDXComponent = useMDXComponent(post?.body.code || "");
   console.log({ post });
 
   return (
@@ -29,7 +27,6 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
       />
       <PostContent code={post?.body.code || ""} />
       <Comment />
-      {/* <MDXComponent /> */}
     </div>
   );
 };

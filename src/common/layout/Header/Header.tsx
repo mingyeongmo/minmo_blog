@@ -1,14 +1,17 @@
 import Link from "next/link";
 import styles from "./header.module.scss";
-import { LightImage } from "../../../../public/images/index";
 import Image from "next/image";
+import { LightImage, LogoImg } from "../../../../public/images/index";
 
 const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.navbar}>
-        <div className={styles.nav_left}>
-          <Link href="/">홈(logo)</Link>
+        <div>
+          <Link href="/" className={styles.nav_left}>
+            <Image src={LogoImg} alt={"로고"} width={52} height={50} />
+            <p>minmo</p>
+          </Link>
         </div>
         <div className={styles.nav_right}>
           <Image src={LightImage} alt={"라이트모드"} width={30} height={30} />

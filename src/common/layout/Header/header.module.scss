@@ -1,3 +1,5 @@
+@import "common/common.scss";
+
 .header {
   width: 100%;
 
@@ -12,14 +14,24 @@
 
   a {
     color: black;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    // font-weight: 500;
   }
+
   .navbar {
     width: 100%;
     margin: auto;
     display: flex;
     justify-content: center;
     gap: 768px;
+    .nav_left {
+      display: flex;
+      align-items: center;
+      p {
+        color: $orange;
+      }
+    }
+
     .nav_right {
       display: flex;
     }
