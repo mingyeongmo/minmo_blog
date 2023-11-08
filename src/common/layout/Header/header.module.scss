@@ -11,11 +11,11 @@
   left: 0px;
   right: 0px;
   background: #ffffff;
+  border-bottom: 2px solid $gray;
 
   a {
     color: black;
     font-size: 2rem;
-    // font-weight: 500;
   }
 
   .navbar {
@@ -23,12 +23,16 @@
     margin: auto;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 768px;
     .nav_left {
       display: flex;
       align-items: center;
+      gap: 10px;
       p {
         color: $orange;
+        font-weight: 800;
+        padding-bottom: 5px;
       }
     }
 
