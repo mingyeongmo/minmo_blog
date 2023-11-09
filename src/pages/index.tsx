@@ -45,7 +45,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-      <Pagination setCurrentPage={setCurrentPage} />
+      <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
     </div>
   );
 };
