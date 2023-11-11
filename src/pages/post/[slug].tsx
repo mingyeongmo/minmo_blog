@@ -6,7 +6,7 @@ import {
   PostThumbnail,
   PostContent,
 } from "src/components/Modules/Post";
-import Comment from "src/components/Library/Comment";
+import Comment from "src/components/Library/Giscus/Comment";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -21,10 +21,10 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
           date={post?.date || ""}
         ></PostSubInfo>
       </header>
-      <PostThumbnail
+      {/* <PostThumbnail
         thumbnail={post?.thumbnail || ""}
         alt={post?.title || ""}
-      />
+      /> */}
       <PostContent code={post?.body.code || ""} />
       <Comment />
     </div>

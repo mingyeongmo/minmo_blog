@@ -4,6 +4,11 @@
   display: flex;
   justify-content: space-between;
   p {
-    font-size: $font-size20;
+    font-size: 1.2rem;
+  }
+
+  .category {
+    color: $orange;
+    font-weight: 600;
   }
 }

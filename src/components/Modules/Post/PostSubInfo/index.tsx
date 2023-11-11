@@ -8,7 +8,7 @@ type PostSubInfoProps = {
 const PostSubInfo = ({ category, date }: PostSubInfoProps) => {
   return (
     <div className={styles.flex}>
-      <p>{category}</p>
+      <p className={styles.category}>{category}</p>
       <p>{date}</p>
     </div>
   );

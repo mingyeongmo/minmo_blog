@@ -8,7 +8,7 @@ type PostContentType = {
 const PostContent = ({ code }: PostContentType) => {
   const MDXComponent = useMDXComponent(code);
   return (
-    <div className={styles.test}>
+    <div className={styles.writing_container}>
       <MDXComponent />
     </div>
   );
