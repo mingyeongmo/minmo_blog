@@ -14,8 +14,8 @@ const Header = () => {
           </Link>
         </div>
         <div className={styles.nav_right}>
-          <Link href="/blog">about</Link>
-          <Image src={LightImage} alt={"라이트모드"} width={40} height={40} />
+          {/* <Link href="/blog">about</Link>
+          <Image src={LightImage} alt={"라이트모드"} width={40} height={40} /> */}
         </div>
       </div>
     </header>
