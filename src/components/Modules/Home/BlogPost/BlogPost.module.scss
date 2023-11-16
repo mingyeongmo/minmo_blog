@@ -3,12 +3,17 @@
 .post_box {
   width: 100%;
   height: 170px;
-  background: $gray;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border: 0.5px solid black;
   border-radius: 10px;
+
+  &:hover {
+    border: 2px solid $orange;
+    background: #f7f7f7;
+  }
 
   .post_upside {
     display: flex;

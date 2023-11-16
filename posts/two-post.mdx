@@ -1,0 +1,284 @@
+---
+title: var, let, const 어디까지 아시나요?
+date: 2023-11-15
+description: 단순히, 재선언 재할당에 대해서만 알고 계시다면?
+thumbnail: https://blog.kakaocdn.net/dn/bRM7ye/btqI4diJAKx/rMceBZ0V7do4bhbIgvkZZK/img.jpg
+category: JavaScript
+---
+
+자바스크립트에서 var로 변수 선언이 가능한데, 왜 let과 const가 나왔고 이 두개의 사용을 권장할까요?
+단순히 재선언과 재할당 여부에 관해서만 알고 계시진 않나요? 오늘은 이 셋에 대해 파헤쳐 보도록 하겠습니다!
+
+# 1. 들어가기전에..
+
+먼저 let과 const는 2015 ES6에서 탄생한 문법입니다.
+
+때문에 그 이전에는 변수든 상수든 `var`만을 사용해서 만들 수 밖에 없었죠.
+
+그렇다면 어떤 이유때문에 let과 const가 탄생했을까요?
+
+# 2. var 와 let
+
+var와 let은 변수를 선언할때 사용하는 키워드 입니다.
+
+이 둘의 차이는 크게 세가지로 나뉘는데요.
+
+`스코프`, `중복 선언`, `호이스팅` 이 있습니다.
+
+## 2-1. 스코프 (Scope)
+
+스코프는 **범위** 라고도 하는데요. 또 이 스코프에도 세가지가 있습니다.
+
+**function Scope (함수 범위)**,
+**Block Scope (블록 범위)**,
+**Global Scope (전역 범위)** 가 있습니다.
+여기서 var 키워드로 선언된 변수는 기본적으로 function Scope, let 키워드로 선언된 변수는 Block Scope를 갖게 됩니다.
+
+<br />
+더욱 이해가 가기 쉽게 예시로 아래 함수를 하나 만들어보겠습니다.
+
+```javascript
+function animal() {
+  var dog = "멍멍!";
+}
+console.log(dog);
+// 결과 : Uncaught ReferenceError: dog is not defined
+```
+
+결과는 위와 같이 나옵니다. dog 변수는 animal 함수의 내부에 있기 때문이지요.
+
+다시 말하자면 var로 선언된 변수는 `함수 스코프` 이고, 이 함수 스코프란 `함수 내부에서만` 접근이 가능하다는것을 의미합니다.
+dog를 출력하고 싶다면 아래와 같이 하면 되겠죠?
+
+```javascript
+function animal() {
+  var dog = "멍멍!";
+  console.log(dog);
+}
+
+animal();
+
+// 결과 : 멍멍!
+```
+
+자 그렇다면 이번에는 함수안에 if문을 선언해보겠습니다.
+
+```javascript
+function animal() {
+  if (true) {
+    var dog = "멍멍!";
+    console.log(dog);
+  }
+}
+
+animal();
+
+// 결과 : 멍멍!
+```
+
+```javascript
+function animal() {
+  if (true) {
+    var dog = "멍멍!";
+  }
+  console.log(dog);
+}
+
+animal();
+
+// 결과 : 멍멍!
+```
+
+왜 위 두개의 코드가 똑같은 결과를 가질까요? 마찬가지로 dog변수는 함수 스코프 이기 때문입니다.
+
+**함수 내부에서 var로 선언된 변수라면 어디서든 접근이 가능**하다는것이죠.
+
+그렇다면 **var 대신 let**을 쓰면 어떨까요?
+
+```javascript
+function animal() {
+  if (true) {
+    let dog = "멍멍!";
+  }
+  console.log(dog);
+}
+
+animal();
+
+// 결과 : Uncaught ReferenceError: dog is not defined
+```
+
+결과에서 말했듯 dog 변수가 정의되어 있지 않다고합니다. 왜 그럴까요?
+
+let으로 선언된 변수는 `블록스코프` 를 갖게 되기 때문입니다. 이 `블록 스코프란 블록 내부를 의미`하며, 블록 바깥에서는 접근할 수 없게 되는것이죠.
+
+블록이란 중괄호로 묶여진곳을 의미하며 if문 뿐만 아니라 for문이나 while문 같은 블록들도
+이에 해당합니다.
+
+<br />
+블록 스코프의 장점이라면 블록 외부에서 변수의 접근을 막아주는 역할을 하기 때문에
+안전하게 사용할 수 있겠죠?
+
+## 2-2. 중복 선언
+
+이번에는 중복 선언 입니다. 바로 본론으로 들어가보겠습니다.
+
+```javascript
+var dog = "멍멍!";
+
+var dog = "야옹~";
+
+console.log(dog);
+
+// 결과 : 야옹~
+```
+
+;;;; 이게 무슨일이죠?? 왜 이렇게 되는거죠? var로 선언하면 중복 선언이 되기 때문입니다..
+
+자세한건 더 찾아보아야겠지만, JavaScript에서 초기 설계 결정과 호환성을 이유로 var는 중복 선언이 가능하였습니다.
+정말 말도 안되죠.
+
+위 코드는 중복 선언이 된것을 한 눈에 알아볼 수 있지만 저 사이에 코드가 수천줄, 수만줄 이라면 어떨까요? 생각만 해도 끔찍할 겁니다.
+
+하지만 `let` 을 사용한다면 해결 할 수 있습니다.
+
+```javascript
+let dog = "멍멍!";
+
+let dog = "야옹~";
+
+console.log(dog);
+
+// 결과 : Uncaught SyntaxError: Identifier 'dog' has
+//       already been declared
+```
+
+위와 같이 let은 중복선언을 허용하지 않기 때문에 이미 선언 되었다고, 에러를 던져줍니다.
+
+코드를 수천, 수만 줄을 작성하다보면 정말 혹여나, 실수로 중복 선언을 하게 될 수 도 있습니다.
+
+이때 let으로 선언한 변수는 에러를 던져줘서 우리는 안전하게 코딩이 가능해집니다!
+
+# 2-3. 호이스팅
+
+```javascript
+console.log(dog);
+
+var dog = "멍멍!";
+
+// 결과 : undefined;
+```
+
+콘솔을 먼저 찍고 그 다음 dog 변수를 선언 및 할당을 해주었는데 왜 에러가 아닌 undefined를 던져줄까요?
+
+이유는 `변수 호이스팅` 때문입니다. 호이스팅에 대해서는 더 자세하게 포스팅하겠지만 빠질 수 없는 부분이기에 간단하게 설명하고 넘어가겠습니다.
+
+변수 호이스팅이란 **프로그램이 실행 되기 이전에 변수의 선언 부분을 최상단으로 끌어올려지도록 보이게 하는것** 입니다.
+
+비유로 예를 들자면, 호이스팅은 프로그램이 실행 되기 이전에 JavaScript에게 우리가 사용하는 변수들의 존재를 알리는거라고 보면 됩니다.
+
+```javascript
+console.log(dog);
+
+var dog = "멍멍!";
+
+console.log(dog);
+
+// 결과 : undefined
+//       멍멍!
+```
+
+위 코드의 결과는 보시다시피 undefined가 출력 되고, 그 다음 멍멍! 이 출력 됩니다.
+
+마치 아래 처럼 동작한다고 생각하면 편합니다.
+
+```javascript
+var dog;
+
+console.log(dog);
+
+dog = "멍멍!";
+
+console.log(dog);
+
+// 결과 : undefined
+//       멍멍!
+```
+
+var로 선언된 변수는 호이스팅이 됐을때,
+`undefined로 초기화 되기 때문에` 선언 이전에 접근을 할 시, 에러가 아닌 undefined 가 출력되게 됩니다.
+
+그런데 할당이 되지 않은 변수에 접근을 하는것이 의미가 있을까요? 또 굳이 해야만 할까요?
+
+그럼 let으로 바꾼다면 어떻게 될까요?
+
+```javascript
+console.log(dog);
+
+let dog = "멍멍!";
+
+console.log(dog);
+
+// 결과 : ReferenceError: Cannot access 'dog'
+//       before initialization
+```
+
+let도 마찬가지로 호이스팅이 되지만 `선언문 이전에 변수에 접근을 불가능하도록` 막아두었습니다.
+
+정확히는 let으로 선언한 변수는 TDZ (Temporal Dead Zone) 에 있게 되는데,
+TDZ 에 있는 동안 자바스크립트는 변수에 접근을 허용하지 않습니다.
+
+그렇기 때문에 에러가 발생하는것이죠.
+
+덕분에 let으로 선언한 변수는 선언문 전에 변수에 접근하는것을 막을 수 있게 됩니다.
+
+# 3. const
+
+const는 let과 거의 동일합니다.
+
+`블록 스코프` 이며 `중복선언 불가`, `선언문 이전에는 접근 불가` 까지 똑같죠.
+
+딱 하나 다른점은 const는 `상수를 선언` 한다는것 입니다.
+
+```javascript
+const dog;
+
+// SyntaxError: Missing initializer in const declaration
+```
+
+그리고 const는 `선언과 동시에 초기화`를 해주어야 하기 때문에 위 코드처럼 쓰면 안됩니다.
+
+```javascript
+const dog = "멍멍!";
+
+dog = "야옹~";
+// TypeError: Assignment to constant variable.
+```
+
+마찬가지로 const는 `재할당 또한 불가능`하죠.
+
+# 4. 정리
+
+## var
+
+- Function Scope
+- 중복선언 가능 (재선언 O, 재할당 O)
+- 호이스팅시에 undefined로 초기화 (때문에 코드상으로 선언문 이전에 접근 가능)
+
+## let
+
+- Block Scope
+- 중복선언 불가능 (재선언 X, 재할당 O)
+- 선언문 이전에 접근 불가능 (TDZ에 들어가게 됨)
+
+## const
+
+- let과 모두 동일하나, 변수가 아닌 상수임. 때문에 재선언, 재할당 모두 불가.
+
+<br />
+
+# 끝으로
+
+오늘은 var와 let, 그리고 const에 대해서 알아보았습니다.
+
+잘못된 점이 있다면 꼭 댓글 부탁드립니다! 감사합니다.

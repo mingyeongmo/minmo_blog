@@ -25,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
+          <meta property="og:url" content="https://minmo.vercel.app" />
           <meta property="og:type" content="website" />
 
           <meta property="og:locale" content="ko_KR" />
