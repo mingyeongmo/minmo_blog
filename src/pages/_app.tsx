@@ -33,6 +33,10 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta property="og:site_name" content="minmo-blog" />
 
           <meta property="article:media_name" content="minmo-blog" />
+          <meta
+            name="google-site-verification"
+            content="Ry8CSQxJ7l4q4yLlXTEKdI0noZt1R66yed09g6FVM1Q"
+          />
         </Head>
         <Component {...pageProps} />
       </Layout>
