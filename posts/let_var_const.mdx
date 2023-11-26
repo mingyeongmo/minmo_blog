@@ -6,8 +6,7 @@ thumbnail: /images/thumbnail/post2.svg
 category: JavaScript
 ---
 
-자바스크립트에서 var로 변수 선언이 가능한데, 왜 let과 const가 나왔고 이 두개의 사용을 권장할까요?
-단순히 재선언과 재할당 여부에 관해서만 알고 계시진 않나요? 오늘은 이 셋에 대해 파헤쳐 보도록 하겠습니다!
+자바스크립트에서 var로 변수 선언이 가능한데, 왜 let과 const가 나왔고 이 두개의 사용을 권장할까요? 단순히 재선언과 재할당 여부에 관해서만 알고 계시진 않나요? 오늘은 이 셋에 대해 파헤쳐 보도록 하겠습니다!
 
 # 1. 들어가기전에..
 
@@ -29,15 +28,13 @@ var와 let은 변수를 선언할때 사용하는 키워드 입니다.
 
 스코프는 **범위** 라고도 하는데요. 또 이 스코프에도 세가지가 있습니다.
 
-**function Scope (함수 범위)**,
-**Block Scope (블록 범위)**,
-**Global Scope (전역 범위)** 가 있습니다.
+**function Scope (함수 범위)**,**Block Scope (블록 범위)**,**Global Scope (전역 범위)** 가 있습니다.
 여기서 var 키워드로 선언된 변수는 기본적으로 function Scope, let 키워드로 선언된 변수는 Block Scope를 갖게 됩니다.
 
 <br />
 더욱 이해가 가기 쉽게 예시로 아래 함수를 하나 만들어보겠습니다.
 
-```javascript
+```javascript titie="javascript"
 function animal() {
   var dog = "멍멍!";
 }
@@ -48,6 +45,7 @@ console.log(dog);
 결과는 위와 같이 나옵니다. dog 변수는 animal 함수의 내부에 있기 때문이지요.
 
 다시 말하자면 var로 선언된 변수는 `함수 스코프` 이고, 이 함수 스코프란 `함수 내부에서만` 접근이 가능하다는것을 의미합니다.
+
 dog를 출력하고 싶다면 아래와 같이 하면 되겠죠?
 
 ```javascript
@@ -109,9 +107,7 @@ animal();
 ```
 
 결과에서 말했듯 dog 변수가 정의되어 있지 않다고합니다. 왜 그럴까요?
-
 let으로 선언된 변수는 `블록스코프` 를 갖게 되기 때문입니다. 이 `블록 스코프란 블록 내부를 의미`하며, 블록 바깥에서는 접근할 수 없게 되는것이죠.
-
 블록이란 중괄호로 묶여진곳을 의미하며 if문 뿐만 아니라 for문이나 while문 같은 블록들도
 이에 해당합니다.
 
@@ -136,6 +132,7 @@ console.log(dog);
 ;;;; 이게 무슨일이죠?? 왜 이렇게 되는거죠? var로 선언하면 중복 선언이 되기 때문입니다..
 
 자세한건 더 찾아보아야겠지만, JavaScript에서 초기 설계 결정과 호환성을 이유로 var는 중복 선언이 가능하였습니다.
+
 정말 말도 안되죠.
 
 위 코드는 중복 선언이 된것을 한 눈에 알아볼 수 있지만 저 사이에 코드가 수천줄, 수만줄 이라면 어떨까요? 생각만 해도 끔찍할 겁니다.
@@ -149,8 +146,7 @@ let dog = "야옹~";
 
 console.log(dog);
 
-// 결과 : Uncaught SyntaxError: Identifier 'dog' has
-//       already been declared
+// 결과 : Uncaught SyntaxError: Identifier 'dog' has already been declared
 ```
 
 위와 같이 let은 중복선언을 허용하지 않기 때문에 이미 선언 되었다고, 에러를 던져줍니다.
@@ -175,7 +171,8 @@ var dog = "멍멍!";
 
 변수 호이스팅이란 **프로그램이 실행 되기 이전에 변수의 선언 부분을 최상단으로 끌어올려지도록 보이게 하는것** 입니다.
 
-비유로 예를 들자면, 호이스팅은 프로그램이 실행 되기 이전에 JavaScript에게 우리가 사용하는 변수들의 존재를 알리는거라고 보면 됩니다.
+비유로 예를 들자면, 호이스팅은 프로그램이 실행 되기 이전에 JavaScript에게 우리가
+사용하는 변수들의 존재를 알리는거라고 보면 됩니다.
 
 ```javascript
 console.log(dog);
@@ -219,8 +216,7 @@ let dog = "멍멍!";
 
 console.log(dog);
 
-// 결과 : ReferenceError: Cannot access 'dog'
-//       before initialization
+// 결과 : ReferenceError: Cannot access 'dog' before initialization
 ```
 
 let도 마찬가지로 호이스팅이 되지만 `선언문 이전에 변수에 접근을 불가능하도록` 막아두었습니다.
