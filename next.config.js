@@ -6,13 +6,4 @@ const nextConfig = {
   swcMinify: false,
 };
 
-const contentlayerConfig = withContentlayer(nextConfig);
-
-module.exports = {
-  ...contentlayerConfig,
-  images: {
-    // loader: "imgix",
-    // path: "minmo.vercel.app",
-    domains: ["blog.kakaocdn.net"],
-  },
-};
+module.exports = withContentlayer(nextConfig);
