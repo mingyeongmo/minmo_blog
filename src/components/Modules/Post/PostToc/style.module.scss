@@ -1,0 +1,14 @@
+.toc_container {
+  position: absolute;
+  display: block;
+  left: 100%;
+
+  .toc_div {
+    position: fixed;
+    margin-left: 10px;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

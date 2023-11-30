@@ -1,4 +1,5 @@
 import { defineDocumentType, makeSource } from "contentlayer/source-files";
+import rehypeSlug from "rehype-slug";
 import highlight from "rehype-highlight";
 import rehypePrettyCode from "rehype-pretty-code";
 
@@ -22,6 +23,7 @@ const contentSource = makeSource({
   mdx: {
     remarkPlugins: [],
     rehypePlugins: [
+      rehypeSlug,
       [
         rehypePrettyCode,
         {

@@ -5,15 +5,14 @@ import {
   PostSubInfo,
   PostThumbnail,
   PostContent,
+  PostToc,
 } from "src/components/Modules/Post";
 import Comment from "src/components/Library/Giscus/Comment";
 import styles from "./[slug].module.scss";
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  console.log({ post });
-
   return (
-    <div className={styles.blog_container}>
+    <>
       <header className={styles.header}>
         <PostTitle title={post?.title || ""} />
         <PostSubInfo
@@ -21,13 +20,15 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
           date={post?.date || ""}
         ></PostSubInfo>
       </header>
+      <PostToc />
+
       {/* <PostThumbnail
         thumbnail={post?.thumbnail || ""}
         alt={post?.title || ""}
       /> */}
       <PostContent code={post?.body.code || ""} />
       <Comment />
-    </div>
+    </>
   );
 };
 
