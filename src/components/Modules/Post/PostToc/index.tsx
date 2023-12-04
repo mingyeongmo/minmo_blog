@@ -22,6 +22,9 @@ const PostToc = () => {
 };
 
 const Text = styled.li<{ level: string }>`
+  :hover {
+    cursor: pointer;
+  }
   list-style: none;
   margin-left: ${({ level }) => level === "3" && "10px"};
   color: ${({ color }) => color};
