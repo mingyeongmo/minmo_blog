@@ -1023,9 +1023,9 @@
   "version" "1.0.1"
 
 "caniuse-lite@^1.0.30001406":
-  "integrity" "sha512-rup09/e3I0BKjncL+FesTayKtPrdwKhUufQFd3riFw1hHg8JmIFoInYfB102cFcY/pPgGmdyl/iy+jgiDi2vdA=="
-  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001518.tgz"
-  "version" "1.0.30001518"
+  "integrity" "sha512-ggIhCsTxmITBAMmK8yZjEhCO5/47jKXPu6Dha/wuCS4JePVL+3uiDEBuhu2aIoT+bqTOR8L76Ip1ARL9xYsEJA=="
+  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001566.tgz"
+  "version" "1.0.30001566"
 
 "ccount@^2.0.0":
   "integrity" "sha512-eyrF0jiFpY+3drT6383f1qhkbGsLSifNAjA61IUjZjmLCWjItY6LB9ft9YhoDgwfmclB2zhu51Lc7+95b8NRAg=="
@@ -3202,7 +3202,12 @@
   "resolved" "https://registry.npmjs.org/next-redux-wrapper/-/next-redux-wrapper-8.1.0.tgz"
   "version" "8.1.0"
 
-"next@^12 || ^13", "next@>=9", "next@13.4.12":
+"next-themes@^0.2.1":
+  "integrity" "sha512-B+AKNfYNIzh0vqQQKqQItTS8evEouKD7H5Hj3kmuPERwddR2TxvDSFZuTj6T7Jfn1oyeUyJMydPl1Bkxkh0W7A=="
+  "resolved" "https://registry.npmjs.org/next-themes/-/next-themes-0.2.1.tgz"
+  "version" "0.2.1"
+
+"next@*", "next@^12 || ^13", "next@>=9", "next@13.4.12":
   "integrity" "sha512-eHfnru9x6NRmTMcjQp6Nz0J4XH9OubmzOa7CkWL+AUrUxpibub3vWwttjduu9No16dug1kq04hiUUpo7J3m3Xw=="
   "resolved" "https://registry.npmjs.org/next/-/next-13.4.12.tgz"
   "version" "13.4.12"

@@ -10,7 +10,7 @@ const PostToc = () => {
         {headings.map(({ id, text, level }) => (
           <Text
             key={id}
-            color={id === activeId ? "#ed7458" : "black"}
+            color={id === activeId ? "#ed7458" : "inherit"}
             level={level}
           >
             <a onClick={() => handleClick(id)}>{text}</a>

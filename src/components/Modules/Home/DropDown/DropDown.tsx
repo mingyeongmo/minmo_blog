@@ -1,10 +1,9 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Post } from "@/contentlayer/generated";
 import { setCate } from "src/redux/modules/categorySlice";
 import { RootState } from "src/redux/configureStore";
-import { useState } from "react";
-import Image from "next/image";
-import { DropdownImg, DropupImg } from "public/images";
+import { DropdownIcon, DropupIcon } from "public/images";
 import styles from "./DropDown.module.scss";
 
 // TODO: 타입 정의가 필요하다.
@@ -56,9 +55,9 @@ const DropDown = ({ posts }: DropDownType) => {
         <label>{cate ? cate : "전체"}</label>
         <div className={styles.drop_img}>
           {view ? (
-            <Image src={DropupImg} alt="drop-up" width={20} height={20} />
+            <DropupIcon width={20} height={20} />
           ) : (
-            <Image src={DropdownImg} alt="drop-down" width={20} height={20} />
+            <DropdownIcon width={20} height={20} />
           )}
         </div>
         {view && (

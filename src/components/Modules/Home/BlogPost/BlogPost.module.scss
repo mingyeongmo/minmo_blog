@@ -7,12 +7,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 0.5px solid black;
+  border: 0.5px solid var(--text1);
   border-radius: 10px;
+  background: var(--background2);
 
   &:hover {
     border: 2px solid $orange;
-    background: #f7f7f7;
   }
 
   .post_upside {
@@ -23,7 +23,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      color: black;
+      color: var(--text1);
 
       .post_date {
         font-size: $font-size14;

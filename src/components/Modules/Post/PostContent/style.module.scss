@@ -59,7 +59,8 @@
     border-bottom-right-radius: 5px;
     border-left: 4px solid $orange;
     word-wrap: break-word;
-    background: #f5f5f5;
+
+    background: var(--background3);
 
     p {
       font-size: 1.05rem;

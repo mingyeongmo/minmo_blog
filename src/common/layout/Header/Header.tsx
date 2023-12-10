@@ -1,7 +1,8 @@
 import Link from "next/link";
 import styles from "./header.module.scss";
 import Image from "next/image";
-import { LightImage, LogoImg } from "../../../../public/images/index";
+import { DarkMode } from "src/components/Modules/Home";
+import { LogoImg } from "public/images";
 
 const Header = () => {
   return (
@@ -14,8 +15,7 @@ const Header = () => {
           </Link>
         </div>
         <div className={styles.nav_right}>
-          {/* <Link href="/blog">about</Link>
-          <Image src={LightImage} alt={"라이트모드"} width={40} height={40} /> */}
+          <DarkMode />
         </div>
       </div>
     </header>
