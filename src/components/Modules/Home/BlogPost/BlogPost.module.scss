@@ -7,7 +7,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 0.5px solid var(--color1);
+  // border: 0.5px solid var(--color1);
+  border: 0.5px solid var(--text-light);
   border-radius: 10px;
   background: var(--background2);
 
@@ -23,7 +24,8 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      color: var(--color1);
+      // color: var(--color1);
+      color: var(--text-light);
 
       .post_date {
         font-size: $font-size14;
