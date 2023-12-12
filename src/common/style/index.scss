@@ -16,25 +16,25 @@ body {
   font-weight: 450;
 }
 
-// body[data-theme="light"] {
-//   background: var(--background-light1);
-//   color: var(--text-light);
+body[data-theme="light"] {
+  background: var(--background-light1);
+  color: var(--text-light);
 
-//   --color1: var(--text-light);
-//   --background1: var(--background-light1);
-//   --background2: var(--background-light1);
-//   --background3: var(--background-light3);
-// }
+  --color1: var(--text-light);
+  --background1: var(--background-light1);
+  --background2: var(--background-light1);
+  --background3: var(--background-light3);
+}
 
-// body[data-theme="dark"] {
-//   background: var(--background-dark1);
-//   color: var(--text-dark);
+body[data-theme="dark"] {
+  background: var(--background-dark1);
+  color: var(--text-dark);
 
-//   --color1: var(--text-dark);
-//   --background1: var(--background-dark1);
-//   --background2: var(--background-dark2);
-//   --background3: var(--background-dark3);
-// }
+  --color1: var(--text-dark);
+  --background1: var(--background-dark1);
+  --background2: var(--background-dark2);
+  --background3: var(--background-dark3);
+}
 
 @font-face {
   font-family: "Pretendard";

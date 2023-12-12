@@ -1,14 +1,9 @@
-import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { LightImage, DarkImage } from "public/images";
-import { useContext, useEffect, useState } from "react";
 
 const DarkMode = () => {
-  const { theme, setTheme } = useTheme();
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
+  const toggleTheme = () => {};
 
   return (
     <div onClick={toggleTheme}>

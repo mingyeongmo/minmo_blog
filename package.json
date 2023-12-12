@@ -12,7 +12,9 @@
   "dependencies": {
     "@giscus/react": "^2.3.0",
     "@reduxjs/toolkit": "^1.9.7",
+    "@types/js-cookie": "^3.0.6",
     "contentlayer": "^0.3.4",
+    "js-cookie": "^3.0.5",
     "next": "13.4.12",
     "next-contentlayer": "^0.3.4",
     "next-redux-wrapper": "^8.1.0",
