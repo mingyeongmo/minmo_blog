@@ -14,9 +14,7 @@ const Header = () => {
             <p>minmo</p>
           </Link>
         </div>
-        <div className={styles.nav_right}>
-          <DarkMode />
-        </div>
+        <div className={styles.nav_right}>{/* <DarkMode /> */}</div>
       </div>
     </header>
   );
