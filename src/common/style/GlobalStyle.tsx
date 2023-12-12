@@ -5,7 +5,12 @@ export const GlobalStyle = createGlobalStyle`
     body {
         ${lightTheme};
     }
-
+body.light {
+    ${lightTheme}
+}
+    body.dark {
+        ${darkTheme};
+    }
     body[data-theme='light'] {
         ${lightTheme};
     }
