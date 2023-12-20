@@ -1,0 +1,12 @@
+@import "common/common.scss";
+
+.home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 48px;
+    color: $orange;
+  }
+}

@@ -1,0 +1,43 @@
+@import "common/common.scss";
+
+.header {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-around;
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+  border-bottom: 2px solid $gray;
+  // background: var(--background1);
+  background: #fff;
+
+  a {
+    font-size: 2rem;
+    text-decoration: none;
+  }
+
+  .navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 768px;
+    .nav_left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      p {
+        color: $orange;
+        font-weight: 800;
+        padding-bottom: 5px;
+      }
+    }
+
+    .nav_right {
+      display: flex;
+    }
+  }
+}
