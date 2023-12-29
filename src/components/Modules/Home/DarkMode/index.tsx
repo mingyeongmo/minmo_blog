@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import { DarkImage, LightImage } from "public/images";
 import { useEffect, useState } from "react";
 
 const DarkMode = () => {
@@ -29,7 +31,16 @@ const DarkMode = () => {
     setDarkTheme(initialThemeValue === "dark");
   }, []);
 
-  return <button onClick={handleThemeChange}>테마 체인지</button>;
+  return (
+    <button onClick={handleThemeChange}>
+      <Image
+        src={darkTheme ? DarkImage : LightImage}
+        alt={"해와달"}
+        width={30}
+        height={30}
+      />
+    </button>
+  );
 };
 
 export default DarkMode;
