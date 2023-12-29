@@ -1,40 +1,67 @@
 "use client";
-
 import { useEffect, useRef } from "react";
 
 export default function Comment() {
   const ref = useRef<HTMLDivElement>(null);
-  const theme = "light";
 
   useEffect(() => {
     if (!ref.current || ref.current.hasChildNodes()) return;
-    const scriptElem = document.createElement("script");
-    scriptElem.src = "https://giscus.app/client.js";
-    scriptElem.async = true;
-    scriptElem.crossOrigin = "anonymous";
-    scriptElem.setAttribute("data-repo", "mingyeongmo/minmo_blog");
-    scriptElem.setAttribute("data-repo-id", "R_kgDOJ_b2pw");
-    scriptElem.setAttribute("data-category", "General");
-    scriptElem.setAttribute("data-category-id", "DIC_kwDOJ_b2p84CaryX");
-    scriptElem.setAttribute("data-mapping", "pathname");
-    scriptElem.setAttribute("data-strict", "0");
-    scriptElem.setAttribute("data-reactions-enabled", "1");
-    scriptElem.setAttribute("data-emit-metadata", "0");
-    scriptElem.setAttribute("data-input-position", "bottom");
-    scriptElem.setAttribute("data-theme", theme);
-    scriptElem.setAttribute("data-lang", "ko");
-    ref.current.appendChild(scriptElem);
-  });
 
-  useEffect(() => {
+    const script = document.createElement("script");
+    script.async = true;
+    script.setAttribute("src", "https://giscus.app/client.js");
+    script.setAttribute("data-repo", "mingyeongmo/minmo_blog");
+    script.setAttribute("data-repo-id", "R_kgDOJ_b2pw");
+    script.setAttribute("data-category", "General");
+    script.setAttribute("data-category-id", "DIC_kwDOJ_b2p84CaryX");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "bottom");
+    script.setAttribute("data-lang", "ko");
+    script.setAttribute("crossorigin", "anonymous");
+
+    if (typeof window !== "undefined") {
+      const theme = localStorage.getItem("theme") || "light";
+      script.setAttribute("data-theme", theme);
+    }
+
+    try {
+      ref.current?.appendChild(script);
+    } catch (error) {
+      console.error("Error while rendering giscus widget.", error);
+    }
+  }, []);
+
+  const changeGiscusTheme = (theme: string) => {
     const iframe = document.querySelector<HTMLIFrameElement>(
       "iframe.giscus-frame"
     );
     iframe?.contentWindow?.postMessage(
-      { giscus: { setConfig: { theme } } },
+      {
+        giscus: {
+          setConfig: {
+            theme: theme,
+          },
+        },
+      },
       "https://giscus.app"
     );
-  }, [theme]);
+  };
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key) {
+        console.log(event);
+        changeGiscusTheme(event.key);
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <div style={{ margin: "5rem 0 0" }}>

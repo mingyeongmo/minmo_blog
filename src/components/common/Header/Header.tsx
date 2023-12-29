@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LogoImg } from "../../../../public/images";
 import styles from "./header.module.scss";
+import { DarkMode } from "src/components/Modules/Home";
 
 const Header = () => {
   return (
@@ -13,7 +14,9 @@ const Header = () => {
             <p>minmo</p>
           </Link>
         </div>
-        <div className={styles.nav_right}></div>
+        <div className={styles.nav_right}>
+          <DarkMode />
+        </div>
       </div>
     </header>
   );

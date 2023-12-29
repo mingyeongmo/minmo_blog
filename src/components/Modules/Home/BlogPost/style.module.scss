@@ -7,10 +7,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  // border: 0.5px solid var(--color1);
-  border: 0.5px solid var(--text-light);
+  border: 0.5px solid var(--color-text1);
   border-radius: 10px;
-  background: var(--background2);
+  background: var(--color-background2);
 
   &:hover {
     border: 2px solid $orange;
@@ -24,8 +23,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      // color: var(--color1);
-      color: var(--text-light);
+      color: var(--color-text1);
 
       .post_date {
         font-size: $font-size14;
