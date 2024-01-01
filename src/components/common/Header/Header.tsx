@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import { DarkMode } from "src/components/Modules/Home";
 import { LogoImg } from "../../../../public/images";
 import styles from "./header.module.scss";
-import { DarkMode } from "src/components/Modules/Home";
 
 const Header = () => {
   return (

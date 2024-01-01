@@ -8,7 +8,7 @@ const Footer = () => {
           <a href="https://github.com/mingyeongmo" target="_blank">
             Github
           </a>
-          <a href="https://www.instagram.com/rudahahah" target="_blank">
+          <a href="https://www.instagram.com/minmo__ddi" target="_blank">
             instagram
           </a>
         </div>

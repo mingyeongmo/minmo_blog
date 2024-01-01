@@ -1,16 +1,11 @@
 "use client";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Post, allPosts } from "@/contentlayer/generated";
+import { allPosts } from "@/contentlayer/generated";
 import { setCate } from "src/redux/modules/categorySlice";
 import { RootState } from "src/redux/configureStore";
 import { DropdownIcon, DropupIcon } from "public/images";
 import styles from "./style.module.scss";
-
-// TODO: 타입 정의가 필요하다.
-interface DropDownType {
-  posts: Post[];
-}
 
 const DropDown = () => {
   const posts = allPosts.sort(

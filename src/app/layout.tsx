@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Footer from "src/components/common/Footer/Footer";
 import Header from "src/components/common/Header/Header";
-import "../styles/reset.scss";
-import "../styles/index.scss";
 import Providers from "src/redux/provider";
 import ThemeScript from "common/ThemeScript";
+import "../styles/reset.scss";
+import "../styles/index.scss";
 
 export default function RootLayout({
   children,
