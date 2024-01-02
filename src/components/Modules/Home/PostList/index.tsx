@@ -27,11 +27,9 @@ const PostList = ({ currentPage, setCurrentPage }: PostsProps) => {
     return state.search.search;
   }) as unknown as string;
 
-  const category = useSelector((state: RootState) => {
-    return state.category;
+  const cate = useSelector((state: RootState) => {
+    return state.category.cate;
   });
-
-  const { cate } = category;
 
   const updateCurrentPage = useCallback(() => {
     setCurrentPage(1);
