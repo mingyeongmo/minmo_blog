@@ -1,0 +1,147 @@
+---
+title: 호이스팅(hoisting)에 대해 알아봅시다.
+date: 2024-01-10
+description: 자바스크립트에서의 호이스팅을 파헤쳐 봅시다.
+thumbnail: /images/thumbnail/post2.svg
+category: JavaScript
+---
+
+자바스크립트에서 말하는 호이스팅이란 무엇일까요?
+
+프론트엔드 개발자의 면접에서도 자주 나오는 주제인데요, 오늘은 이 호이스팅에 대해 알아보겠습니다.
+
+## 1. 호이스팅의 개념
+
+JavaScript 호이스팅은 인터프리터가 코드를 실행하기 전에 함수, 변수, 클래스 또는 임포트의 선언문을 해당 범위의 맨 위로 `끌어올려진 것처럼 보이는 현상`을 의미합니다.
+
+<br />
+아래 코드는 그 예시 입니다.
+
+```javascript
+const num = add(15, 10);
+
+console.log(num); // 25
+
+function add(a, b) {
+  return a + b;
+}
+```
+
+add 함수를 선언하기 전에 호출했음에도 불구하고 문제가 없습니다 호이스팅 덕분이죠.
+
+## 2. 변수 호이스팅
+
+자바스크립트의 **모든 선언에는 호이스팅**이 발생합니다. var로 선언한 경우에도 선언 이전에 변수에 접근할 수 있습니다.
+
+```javascript
+console.log(dog); // undefined
+
+var dog = "멍멍!";
+
+console.log(dog); // 멍멍!
+```
+
+하지만 값이 아직 할당되지 않았기 때문에 위와 같이 undefined가 출력됩니다.
+
+<br />
+간혹 let과 const는 호이스팅이 일어나지 않는다고 생각하시는 분들이 계실 수 있는데,
+이는 사실이 아닙니다.
+
+let과 const 또한 선언이기에 호이스팅이 발생합니다.
+
+```javascript
+console.log(dog);
+
+let dog = "멍멍";
+
+console.log(dog);
+
+// ReferenceError: Cannot access 'dog' before initialization
+```
+
+하지만 let과 const는 위와 같이 `선언문 이전에 접근이 불가능하도록` 제한되어 있습니다.
+
+정확히 말하자면, let과 const는 선언문에 도달하기 전까지 **TDZ (Temporal Dead Zone)** 즉, 한국말로는 일시적 사각지대에 있게 되는데
+이곳에 있는 동안 자바스크립트는 변수에 접근을 할 수 없습니다.
+
+> var, let, const에 대해 더 알고 싶다면 [**var, let, const 어디까지 아시나요?**](https://minmo.vercel.app/post/let_var_const) 를 읽어주세요!
+
+<br />
+하지만 여기서 의문이 생깁니다.
+
+var는 요즘 잘 쓰지도 않고, let과 const는 선언 전에 접근이 불가능한데 그렇다면 호이스팅이 왜 필요할까요?
+
+## 3. 함수 호이스팅
+
+변수와 마찬가지로 함수 또한 호이스팅이 발생합니다.
+
+```javascript
+sayHello();
+
+function sayHello() {
+  console.log("쎄이 헬로~!");
+}
+```
+
+함수 호이스팅은 **함수 선언문 전체가 해당 스코프의 최상단으로** 옮겨집니다.
+
+또한, 함수 선언문은 변수와 달리 **할당 없이 바로 사용**도 가능합니다.
+
+### 3-1. 함수 표현식
+
+하지만 함수 표현식은 변수에 할당되기 이전에 해당 변수를 사용할 수 없습니다.
+
+```javascript
+greet(); // TypeError: greet is not a function
+
+var greet = function sayHello() {
+  console.log("쎄이 헬로~!");
+};
+```
+
+greet 변수는 분명 호이스팅이 됩니다만, 할당은 이루어지지 않았기 때문에 변수 greet가 undefined로 초기화되어,
+위와 같이 타입에러가 발생합니다.
+
+때문에 함수 표현식을 작성할 때에는, 순서에 유의해야 코드가 정상적으로 작동하게 됩니다.
+
+### 3-2. 호이스팅의 의의
+
+그렇다면 앞서 말했던 호이스팅의 존재의의는 무엇일까요?
+
+저는 바로 함수 호이스팅에서 그 의의와 용도를 찾을 수 있었습니다.
+
+```javascript
+function main() {
+  // 1번
+  function sayHello() {
+    console.log("쎄이 헬로~!");
+  }
+  ...
+  sayHello();
+  ...
+  // 2번
+  function sayHello() {
+    console.log("쎄이 헬로~!");
+  }
+}
+```
+
+위의 코드를 보면 1번과 2번중 어디에 sayHello 함수를 배치하는 것이 좋을까요?
+
+정답은 없습니다. 개인의 선호에 따라 결정하면 됩니다.
+
+그런데 여러 사람이 코드를 볼 때는 얘기가 달라집니다. sayHello 함수가 main 함수 내에서 꼭 읽고 넘어가야하는 중요한 코드라면 1번 위치에 두는것이 적절할 것 입니다.
+
+반대로 굳이 읽을 필요 없거나, 함수의 이름만으로 기능파악이 가능하다면 2번 위치에 두는것이 적절할 것입니다. 이때 2번은 호이스팅 덕분에 가능한 것이죠.
+
+이렇게 호이스팅을 활용하면 코드를 더욱 깔끔하게 만들 수 있습니다.
+
+## 마무리
+
+오늘은 호이스팅에 대해서 알아보았습니다.
+
+틀린점이나 수정해야할 점이 있다면 댓글로 알려주시기 바랍니다. 감사합니다.
+
+## 참고
+
+> 글 쓰는데 큰 도움이 되었던 영상입니다. [자바스크립트 호이스팅, 흔한 오해 1가지](https://www.youtube.com/watch?v=AlcRl4pJd0c)
