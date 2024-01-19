@@ -26,6 +26,21 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: "블로그",
-  description: "개발자 블로그",
+  applicationName: "minmo Blog",
+  referrer: "origin-when-cross-origin",
+  keywords: ["Next.js", "개발자 블로그", "개인 블로그"],
+  title: "minmo Blog",
+  description: "minmo의 개인 블로그 입니다.",
+  creator: "민경모",
+  publisher: "민경모",
+  icons: "/favicon.png",
+  openGraph: {
+    title: "minmo blog",
+    description: "minmo의 개인 블로그 입니다.",
+    url: "https://minmo.vercel.app/",
+    siteName: "minmo Blog",
+    images: "public/favicon.png",
+    locale: "ko",
+    type: "website",
+  },
 };
