@@ -1,15 +1,15 @@
 @import "common/common.scss";
 
 .writing_container {
-  line-height: 1.8;
+  line-height: 1.7;
   font-size: 1.1rem;
 
   h2 {
-    margin: 2rem 0 1rem;
+    margin: 1rem 0 0.5rem;
     font-size: 1.8rem;
   }
   h3 {
-    margin: 2rem 0 1rem;
+    margin: 1rem 0 0.5rem;
     font-size: 1.6rem;
   }
   ul {
@@ -61,7 +61,7 @@
     border-left: 4px solid $orange;
     word-wrap: break-word;
 
-    background: var(--background3);
+    background: var(--color-background3);
 
     p {
       font-size: 1.05rem;

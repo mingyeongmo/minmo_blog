@@ -26,6 +26,6 @@ export default function RootLayout({
 }
 
 export const metadata: Metadata = {
-  title: "minmo",
-  description: "minmo 블로그, 프론트엔드 개발자 블로그",
+  title: "블로그",
+  description: "개발자 블로그",
 };

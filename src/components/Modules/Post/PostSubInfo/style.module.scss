@@ -3,12 +3,10 @@
 .flex {
   display: flex;
   justify-content: space-between;
-  p {
-    font-size: 1.2rem;
-  }
 
   .category {
     color: $orange;
+    font-size: 1.2rem;
     font-weight: 600;
   }
 }

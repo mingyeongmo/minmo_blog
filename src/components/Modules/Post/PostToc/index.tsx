@@ -28,6 +28,7 @@ const Text = styled.li<{ $level: string }>`
   }
   list-style: none;
   margin-left: ${({ $level }) => $level === "3" && "10px"};
+  font-size: ${({ $level }) => $level === "3" && "0.9rem"};
   color: ${({ color }) => color};
 `;
 export default PostToc;
