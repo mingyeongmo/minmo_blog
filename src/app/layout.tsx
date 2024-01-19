@@ -39,7 +39,13 @@ export const metadata: Metadata = {
     description: "minmo의 개인 블로그 입니다.",
     url: "https://minmo.vercel.app/",
     siteName: "minmo Blog",
-    images: "public/favicon.png",
+    images: [
+      {
+        url: "public/favicon.png",
+        width: 800,
+        height: 800,
+      },
+    ],
     locale: "ko",
     type: "website",
   },
