@@ -1,3 +1,5 @@
+@import "common/device.scss";
+
 :root {
   --color-text1: #333;
   --color-background1: #fafafa;
@@ -30,6 +32,10 @@ body {
   margin: 0 auto;
 
   position: relative;
+
+  @include mobile {
+    padding: 1rem;
+  }
 }
 
 @font-face {

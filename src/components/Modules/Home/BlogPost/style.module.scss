@@ -1,4 +1,5 @@
 @import "common/common.scss";
+@import "common/device.scss";
 
 .post_box {
   width: 100%;
@@ -19,6 +20,7 @@
     display: flex;
     justify-content: space-between;
     gap: 2rem;
+
     .post_contents {
       display: flex;
       flex-direction: column;
@@ -37,10 +39,16 @@
         font-size: $font-size16;
       }
     }
+    @include mobile {
+      align-items: center;
+    }
   }
   .post_category {
     font-size: $font-size16;
     color: $orange;
     font-weight: 800;
+    @include mobile {
+      display: none;
+    }
   }
 }
