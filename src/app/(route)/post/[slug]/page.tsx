@@ -60,9 +60,16 @@ export async function generateMetadata({
     return {};
   }
 
+  const { title, description, slug } = post;
+
   return {
     title: post.title,
     description: post.description,
-    category: post.category,
+    openGraph: {
+      title: { absolute: title },
+      description,
+      type: "article",
+      url: `https://minmo.vercel.app/post/${slug}`,
+    },
   };
 }

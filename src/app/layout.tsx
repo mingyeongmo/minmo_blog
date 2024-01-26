@@ -30,23 +30,26 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   keywords: ["Next.js", "개발자 블로그", "개인 블로그"],
   title: "minmo Blog",
-  description: "minmo의 개인 블로그 입니다.",
+  description: "minmo의 기술 블로그 입니다.",
   creator: "민경모",
   publisher: "민경모",
   icons: "/favicon.png",
   openGraph: {
-    title: "minmo blog",
-    description: "minmo의 개인 블로그 입니다.",
+    title: "minmo의 블로그",
+    description: "minmo의 기술 블로그 입니다.",
     url: "https://minmo.vercel.app/",
     siteName: "minmo Blog",
-    images: [
-      {
-        url: "public/favicon.png",
-        width: 800,
-        height: 800,
-      },
-    ],
     locale: "ko",
     type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "standard",
+      "max-snippet": -1,
+    },
   },
 };
