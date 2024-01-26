@@ -6,8 +6,6 @@ import ThemeScript from "common/ThemeScript";
 import "../styles/reset.scss";
 import "../styles/index.scss";
 
-const googleVerification = process.env.GOOGLE_VERIFICATION_CODE;
-
 export default function RootLayout({
   children,
 }: {
@@ -37,7 +35,7 @@ export const metadata: Metadata = {
   publisher: "민경모",
   icons: "/favicon.png",
   verification: {
-    google: googleVerification,
+    google: process.env.GOOGLE_VERIFICATION_CODE,
   },
   openGraph: {
     title: "minmo의 블로그",
