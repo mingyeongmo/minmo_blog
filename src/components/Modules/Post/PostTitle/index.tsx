@@ -1,9 +1,11 @@
+import styles from "./style.module.scss";
+
 type PostTitleProps = {
   title: string;
 };
 
 const PostTitle = ({ title }: PostTitleProps) => {
-  return <h1 style={{ fontSize: "40px" }}>{title}</h1>;
+  return <h1 className={styles.title}>{title}</h1>;
 };
 
 export default PostTitle;

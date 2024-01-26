@@ -1,9 +1,14 @@
 @import "common/common.scss";
+@import "common/device.scss";
 
 .header {
   width: 100%;
-
   height: 80px;
+
+  @include mobile {
+    height: 70px;
+  }
+
   display: flex;
   justify-content: center;
   position: sticky;

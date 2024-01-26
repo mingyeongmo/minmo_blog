@@ -27,7 +27,7 @@ const BlogPost = ({
           <div className={styles.post_upside}>
             <div className={styles.post_contents}>
               <p className={styles.post_date}>{date}</p>
-              <h3 className={styles.post_title}>{title}</h3>
+              <p className={styles.post_title}>{title}</p>
               <p className={styles.post_des}>{des}</p>
             </div>
             <Image

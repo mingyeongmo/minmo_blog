@@ -1,7 +1,13 @@
+@import "common/device.scss";
+
 .toc_container {
   position: absolute;
   display: block;
   left: 100%;
+
+  @include tablet {
+    display: none;
+  }
 
   .toc_div {
     position: fixed;
