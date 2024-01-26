@@ -34,6 +34,9 @@ export const metadata: Metadata = {
   creator: "민경모",
   publisher: "민경모",
   icons: "/favicon.png",
+  verification: {
+    google: "process.env.GOOGLE_VERIFICATION_CODE",
+  },
   openGraph: {
     title: "minmo의 블로그",
     description: "minmo의 기술 블로그 입니다.",
