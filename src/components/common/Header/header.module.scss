@@ -16,7 +16,7 @@
   left: 0px;
   right: 0px;
   z-index: 1;
-  border-bottom: 2px solid $gray;
+  border-bottom: 2px solid var(--color-gray);
   background: var(--color-background1);
 
   a {
