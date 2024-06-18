@@ -1,0 +1,189 @@
+---
+title: 자바스크립트 실행 컨텍스트
+date: 2024-05-16
+description: 실행 컨텍스트, 생각보다 어렵지 않을지도?
+thumbnail: /images/thumbnail/dream.svg
+category: JavaScript
+---
+
+## 1. 실행 컨텍스트(Execution Context)의 정의
+
+오늘은 자바스크립트 **실행 컨텍스트(Execution Context)** 에 대해 알아보겠습니다.
+본문에서는 실행 컨텍스트의 핵심 내용만 다룰 예정이니, 더 자세하게 알고 싶다면 다른 글을 참고해주세요!
+
+<br />
+실행 컨텍스트는 자바스크립트의 동작원리를 담고 있는 핵심 개념이라고도 볼 수 있는데요,
+한 문장으로 말하자면 **실행 가능한 코드에 제공할 환경 정보들을 모아 놓은 객체** 입니다.
+
+이러한 실행 컨텍스트를 이해한다면 동작원리나, 성능 최적화면에서 이러한 개념을 적용해
+볼 수 있습니다.
+
+<br />
+바로 예제로 살펴 보겠습니다.
+
+```javascript
+var x = 1;
+
+function fir() {
+  var y = 2;
+
+  function sec() {
+    var z = 3;
+
+    console.log(x + y + z);
+  }
+
+  sec();
+}
+
+fir(); // 6
+```
+
+위 코드는 자바스크립트 엔진이 먼저 전역 코드를 평가하여 전역 실행 컨텍스트를 생성합니다. 그리고 함수가 호출되면 함수 코드를 평가하여 함수 실행 컨텍스트를 생성합니다.
+
+이때 생성된 실행 컨텍스트는 `스택 자료구조로 관리`됩니다. 이를 **실행 컨텍스트 스택** 이라고 부릅니다.
+
+위 코드를 실행하면 코드가 실행되는 시간의 흐름에 따라 실행 컨텍스트 스택에는 다음과 같이 실행 컨텍스트가 추가되고 제거 됩니다.
+
+<br />
+<img src="/images/thumbnail/execution2.png" width="100%" height="100%" />
+<span style={{ color: "gray", textAlign: "center", fontSize: "16px" }}>
+  실행 컨텍스트 스택
+</span>
+<br />
+이처럼 **실행 컨텍스트 스택은 코드의 실행 순서를 관리** 합니다. 소스코드가 평가
+되면 실행 컨텍스트가 생성되고 실행 컨텍스트 스택의 최상위에 쌓이게 됩니다.
+그리고 **실행 컨텍스트 스택의 최상위에 존재하는 실행 컨텍스트는 현재 실행 중인
+코드의 실행 컨텍스트** 입니다.
+
+## 2. 실행 컨텍스트의 구성
+
+실행 컨텍스트는 크게 `Variable Environment`,`Lexical Environment` 이 두가지로 볼 수 있습니다.
+
+### Variable Environment
+
+Variable Environment에는 현재 컨텍스트 내부의 식별자들에 대한 정보인 **환경 레코드(Environment Record)** 와 외부 환경 정보인 **외부 환경 참조(Outer Environment Reference)** 가 있습니다.
+
+그리고 이를 복사하여 Lexical Environment를 생성합니다.
+
+### Lexical Environment
+
+Lexical Environment는 코드가 진행됨에 따라 변경 사항이 실시간으로 적용 됩니다.
+
+> Variable Environment와 Lexical Environment의 명확한 차이점은 [임우찬님의 글](https://blog.naver.com/dlaxodud2388/222655214381) 을 참고해주세요!
+
+여기서 저는 다른것도 중요하지만 **환경 레코드**와 **외부 렉시컬 환경 참조** 키워드가 실행 컨텍스트의 핵심이라고 생각합니다.
+
+#### 환경 레코드(Environment Record)
+
+환경 레코드는 현재 컨텍스트와 관련된 식별자를 등록하고 등록된 식별자에 바인딩된 값을 관리하는 저장소 입니다.
+
+아래 예제를 살펴보겠습니다.
+
+```javascript
+/* Global */
+console.log(apple); //undefined
+
+var apple = "사과";
+
+console.log(apple); //사과
+```
+
+여기서 JS 엔진은 환경 레코드에 식별자 apple을 기록하고 var 키워드로 선언해두었기때문에 undefined로 초기화 해둡니다.
+이처럼 **선언문만 실행해서 환경 레코드에 기록해두는것을 생성 단계(Creation Phase)** 라고 합니다.
+
+<br />
+이후 **선언문을 제외한 나머지 코드를 순차적으로 실행하는데 이것을 실행 단계(Execution
+Phase)** 라고 합니다. 환경 레코드를 참조하거나 업데이트 하는것이죠.
+
+코드로 예시로 설명하자면
+
+1.  첫번째 라인을 JS 엔진이 현재 활성화된 실행컨텍스트 내에 환경
+    레코드를 보고 이미 기록된 apple의 값을 참조해서 undefined를 출력하게 됩니다.
+2.  apple에 "사과"를 할당해주며 환경 레코드에 이를 기록해둡니다.
+3.  마지막 라인을 실행하면 JS 엔진은 환경 레코드를 참조해서 apple의 값을 사과로 결정해냅니다.
+
+<br />
+만약 var가 아닌 `let이나 const`라면 어떨까요? 이 경우에도 JS 엔진이 apple 식별자를
+기록해두긴 하지만 값을 초기화 하진 않습니다. 때문에 선언문 이전에 apple을 참조하려고
+하면 reference error가 발생합니다. 이렇게 선언 이전에 식별자를 참조할 수 없는것을
+**일시적 사각지대** 안에 있다고 합니다.
+
+어? 이거 뭔가가 생각나지 않나요? 맞습니다! `호이스팅이 발생하는 이유가 바로 여기` 있었습니다! 갑자기 아는게 나와서 막 재밌어지지 않나요? ㅎㅎ
+
+#### 외부 환경 참조(Outer Environment Reference)
+
+외부 환경 참조는 상위 스코프를 가리킵니다.
+다시 말하자면 **현재 실행 컨텍스트의 외부 환경(Lexical Environment)을 가리키는 참조** 입니다.
+이를 통해 자바스크립트는 스코프 체인을 형성하여 상위 스코프의 변수와 함수에 접근할 수 있습니다.
+
+또 한번 코드를 보겠습니다.
+
+```javascript
+var power = "up";
+
+function health() {
+  var speed = "fast";
+  console.log(power); // up
+  console.log(speed); // fast
+}
+
+console.log(speed); // error
+```
+
+위의 예제에서 health 함수 내부에서 외부에 선언한 변수 power에 접근이 가능하지만, 내부에서 선언한 speed는 함수 내부에서만 접근할 수 있는것을 볼 수 있습니다.
+이런 **식별자의 유효범위를 현재 스코프에서 찾지 못하면 상위 스코프로 이동하면서 찾는것을 스코프 체인** 이라고 합니다.
+
+그리고 이것을 가능하게 하는것이 바로 `Outer Environment Reference` 인것이죠.
+
+코드 하나 더 보겠습니다.
+
+```javascript
+let lamp = true;
+
+function wall() {
+  let lamp = false;
+
+  console.log(lamp);
+}
+
+wall();
+```
+
+JS 엔진은 여기서 lamp의 값을 어떻게 결정할까요?
+
+이런 상황에서 변수나 함수의 값을 결정하는것을 **식별자 결정(Identifier Resolution)** 이라고 합니다.
+
+위처럼 콜 스택 내에 동일한 식별자가 여러 개 있을때, JS 엔진이 Outer Environment Reference를 통해 결정하게 됩니다.
+
+코드는 다음과 같이 실행이 됩니다.
+
+<br />
+
+1. 환경 레코드에 lamp라는 변수와 변수에 바인딩 된 값이 기록 됩니다.
+2. 함수 선언문이 환경 레코드에 기록 됩니다.
+3. wall() 함수가 실행되면서, 새로운 실행 컨텍스트가 생성 됩니다.
+4. 새로운 실행 컨텍스트에 lamp가 기록 됩니다.
+5. console.log 가 실행되면서 lamp가 출력 됩니다.
+
+<br />
+
+이때 3번의 과정을 보면 wall() 함수가 실행 될 때 JS 엔진은 새로 생성된 실행 컨텍스트에 상위 Lexical Environment와 연결되는 Outer Environment Reference를 남깁니다.
+그래서 필요하다면
+
+`상위 Lexical Environment에 기록되어 있는 환경 레코드에 저장된 식별자를 참조`할 수 있습니다.
+
+하지만 자바스크립트는 현재 실행중인 실행 컨텍스트의 환경 레코드를 먼저 보기 때문에 lamp의 값은 false가 됩니다.
+
+## 마무리
+
+오늘은 자바스크립트 실행 컨텍스트의 핵심 내용에 대해서 다뤄보았습니다. 사실 더 깊게 파고든다면 안 다룬 내용도 많아 이 부분에 대해서는 2부로 꼭 추가 포스팅 할 예정입니다. ^\_^;;
+
+사실 처음에는 너무 어려운 개념이라고 생각하며 봤는데 한번쯤 경험해본 내용들이 나와 재밌었습니다.
+또한 글을 쓰면서 점점 자바스크립트 동작원리와 한발자국씩 가까워지고 있다는것을 느꼈습니다.
+
+틀린점이나 수정해야할 점이 있다면 댓글로 알려주시기 바랍니다. 감사합니다.
+
+## 참고
+
+> 글을 쓰는데 큰 도움이 되었던 글 및 영상입니다. [하루의 실행 컨텍스트](https://www.youtube.com/watch?v=EWfujNzSUmw) | [임우찬님의 글](https://blog.naver.com/dlaxodud2388/222655214381)
