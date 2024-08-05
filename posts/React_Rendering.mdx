@@ -1,0 +1,185 @@
+---
+title: 리액트 리렌더링에 관해서
+date: 2024-07-23
+description: 너 왜 또 렌더링하는거니..?
+thumbnail: /images/thumbnail/reactStudy.svg
+category: React
+---
+
+오늘은 리액트의 **리렌더링(re-rendering)** 에 관해 이야기 할 생각 입니다.
+
+다들 한번씩 리액트로 개발을 하다보면 애플리케이션의 성능 향상이나 사용자 경험 개선, 또는 코드 유지 보수를 위해 불필요한 리렌더링에 신경 쓴적이 있을 것입니다.
+
+그래서 제가 리렌더링은 무엇인지, 왜 일어나는지, 또 어떻게 최적화 할 수 있을지 알려 드리겠습니다!
+
+## 1. 리액트 리렌더링 이해하기
+
+먼저 프론트엔드에서 렌더링이란 보통 브라우저의 렌더링을 뜻하는데,
+
+**브라우저에서의 렌더링**이란 쉽게 말해서 HTML과 CSS 리소스를 기반으로 웹페이지에 필요한 UI를 그리는 과정을 의미합니다.
+
+그리고 리액트에서의 렌더링은 브라우저가 렌더링에 필요한 DOM 트리를 만드는 과정을 의미합니다.
+
+### 리액트 렌더링과 리렌더링의 기본 개념
+
+리액트에서의 렌더링을 명확히 말하자면,
+**리액트 애플리케이션 트리 안에 있는 모든 컴포넌트들이 자신들이 가지고 있는 props와 state의 값을 기반으로 어떻게 UI를 구성하고 이를 바탕으로 어떤 DOM 결과를 브라우저에 제공할 것인지 계산하는 일련의 과정**을 의미합니다.
+
+그리고 리렌더링은 `최초 렌더링 이후로 발생하는 모든 렌더링`을 말합니다.
+
+## 2. 리렌더링이 발생하는 조건
+
+리렌더링이 발생하는 조건에는 여러가지가 있습니다. 아래는 주요 조건들과 그 예시 입니다.
+
+#### 1. 상태(State) 변경
+
+- **useState Hook 사용 시** : setState 함수로 상태가 업데이트되면 해당 상태를 사용하는 컴포넌트가 리렌더링됩니다.
+- **클래스형 컴포넌트에서 setState 호출 시** : 상태가 변경되면 컴포넌트가 리렌더링됩니다.
+
+#### 2. 속성(Props) 변경
+
+- **부모 컴포넌트에서 자식 컴포넌트로 전달된 props 변경 시** : 자식 컴포넌트가 리렌더링됩니다.
+
+#### 3. 부모 컴포넌트 리렌더링
+
+- **부모 컴포넌트 리렌더링 시** : 자식 컴포넌트도 함께 리렌더링됩니다. 이는 부모-자식 관계의 특성상 발생합니다.
+
+#### 4. 훅 사용시 의존성 배열 변경
+
+- **useEffect, useMemo, useCallback 훅 사용에서 의존성 배열의 값 변경 시** : 해당 훅이 다시 실행되고, 필요한 경우 리렌더링이 발생합니다
+
+#### 5. forceUpdate 호출 시
+
+- **클래스형 컴포넌트에서 forceUpdate 호출 시**: 강제로 컴포넌트가 리렌더링됩니다.
+
+#### 6. shouldComponentUpdate 반환 값
+
+- **클래스형 컴포넌트에서 shouldComponentUpdate 메서드가 true 반환 시** : 리렌더링이 발생합니다. 이 메서드를 사용하여 리렌더링을 제어할 수 있습니다.
+
+## 3. 렌더링 최적화 방법
+
+그렇다면 렌더링 최적화 방법에는 어떤게 있을까요? 본문에서는 최적화 방법에 대한 간단한 설명만 하겠습니다.
+
+### 3-1. React.memo()
+
+- `React.memo()`는 React의 함수 컴포넌트 최적화를 돕는 HOC 입니다.
+  함수형 컴포넌트를 **메모이제이션하여 props가 변경되지 않으면 이전 렌더링 결과를 재사용**합니다. 기본적으로 얕은비교(shallow comparison)를 사용하여 props의 변경 여부를 확인합니다.
+
+```jsx
+// React.memo로 메모이제이션된 컴포넌트
+const MemoizedComponent = React.memo(({ props }) => {
+  /* 내용 */
+});
+```
+
+### 3-2. useMemo
+
+useMemo는 **특정 값이 변경되지 않는 한 연산 결과를 메모이제이션하여 이전 계산 결과를 재사용**할 수 있게 해주는 리액트 훅입니다. 이는 연산 비용이 큰 함수의 결과를 캐싱하여 불필요한 계산을 방지하고 성능을 최적화하는 데 유용합니다.
+
+예시 코드와 함께 설명하겠습니다.
+
+```jsx
+import React, { useState, useMemo } from "react";
+
+const MyComponent = () => {
+  const [count, setCount] = useState(0);
+  const [input, setInput] = useState("");
+
+  // useMemo를 사용하여 계산된 값을 메모이제이션
+  const doubledCount = useMemo(() => count * 2, [count]);
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>Count 증가 버튼</button>
+      <h2>Doubled Count: {doubledCount}</h2>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+**1. 상태 선언**
+
+- count: 숫자 상태, 버튼 클릭 시 증가합니다.
+- input: 문자열 상태, 입력 필드에서 텍스트를 입력합니다.
+
+**2. useMemo 사용**
+
+doubledCount는 count의 두 배 값을 계산합니다.
+useMemo를 사용하여 count값이 변경될 때만 계산되도록 합니다.
+
+**useMemo를 사용하지 않았다면** input 값을 입력할때마다 상태가 변경되기에 컴포넌트가 렌더링되어 count값이 계속 계산이 되었을 것 입니다.
+따라서 useMemo를 사용하면 count가 변경되지 않는 한, doubledCount는 이전 값을 재사용합니다.
+
+**3. 렌더링**
+
+버튼을 클릭하면 count가 증가하고, doubledCount가 갱신됩니다.
+input 필드의 값이 변경되어도 doubledCount는 영향을 받지 않습니다.
+
+### 3-3. useCallback
+
+useCallback은 useMemo와 비슷하지만 값이 아닌, **함수를 메모이제이션한다**는 특징이 있습니다.
+
+간단한 예시 코드 입니다.
+
+```jsx
+import React, { useState, useCallback } from "react";
+
+const MyComponent = () => {
+  const [count, setCount] = useState(0);
+  const [input, setInput] = useState("");
+
+  // useCallback을 사용하여 함수를 메모이제이션
+  const handleClick = useCallback(() => {
+    console.log("Count:", count);
+  }, [count]); // count가 변경될 때만 새로 생성
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={handleClick}>Log Count</button>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+
+마찬가지로 상태를 선언하였고 useCallback으로 감싼 handleClick 함수가 있습니다.
+
+`useCallback이 없었다면` handleClick 함수는 count가 변경되든, input값이 변경되든 항상 재생성 되었을겁니다.
+
+하지만 **useCallback이 있기 때문에, 불필요한 재생성을 방지**할 수 있습니다.
+
+### 3-4. React Dev Tools
+
+개발자 도구를 이용하는 방법입니다.
+
+**React DevTools는 렌더링 성능을 분석하고, 어느 부분을 개선시키면 좋을지 알 수 있는** 크롬 확장 프로그램 입니다. 아마 이 확장 프로그램은 React로 개발하는 대부분의 개발자가 사용할것 같습니다.
+
+자세한건 React DevTools에 대해 잘 설명해주신 시소님의 글을 읽어주세요!
+
+> 시소님의 블로그 [**React 개발자 도구 활용하기 (Dev Tools)**](https://velog.io/@seesaw/React-%EA%B0%9C%EB%B0%9C%EC%9E%90-%EB%8F%84%EA%B5%AC-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0-Dev-Tools)
+
+## 결론
+
+사실 제가 말씀드린 렌더링 최적화 방법 외에도 다양한 방법이 있고, 또한 적용을 한다고 꼭 좋다고만은 말씀을 못드리겠습니다.
+
+이게 무슨 말이냐 하면, 메모이제이션을 하는 작업도 비용이 드는 작업이기 때문에 섣부른 최적화는 독이 될 수 도 있다는것 입니다. 과연 정답은 무엇일까요? 아직 제가 말씀드리기엔 섣부른것 같습니다.
+
+또한 이런것까지 고려하면 정말 머리 아프고 단순한 영역이 아니라는 생각이 듭니다. 그래서 프론트엔드가, 더 나아가서 개발이란것이 매력있는것이겠죠?
+
+정말 배움에는 끝이 없다고 쓰면서도 느낍니다. 긴글 봐주셔서 감사합니다.
