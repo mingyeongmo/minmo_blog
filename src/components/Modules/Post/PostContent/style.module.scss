@@ -78,4 +78,13 @@
     font-size: 1.2rem;
     font-weight: 600;
   }
+  li {
+    code {
+      color: #f1613f;
+      background-color: #ffebe7;
+      padding: 0.1rem 0.4rem;
+      margin-right: 0.25rem;
+      font-weight: 600;
+    }
+  }
 }
