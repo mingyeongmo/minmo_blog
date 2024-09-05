@@ -1,5 +1,5 @@
 "use client";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
 import styles from "./style.module.scss";
@@ -10,6 +10,8 @@ interface PaginationType {
 }
 
 const Pagination = ({ currentPage, setCurrentPage }: PaginationType) => {
+  const [btnWriteColor, setBtnWriteColor] = useState<string>("#000000");
+
   const postLength = useSelector((state: RootState) => {
     return state.category.postLength;
   });
@@ -32,6 +34,27 @@ const Pagination = ({ currentPage, setCurrentPage }: PaginationType) => {
     color: "#ffffff",
   };
 
+  useEffect(() => {
+    const handleThemeChange = () => {
+      const theme = document.body.getAttribute("data-theme");
+      if (theme === "dark") {
+        setBtnWriteColor("#ffffff");
+      } else {
+        setBtnWriteColor("#000000");
+      }
+    };
+
+    handleThemeChange();
+
+    const observer = new MutationObserver(handleThemeChange);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={styles.pagination_container}>
       <div className={styles.pagination}>
@@ -40,7 +63,7 @@ const Pagination = ({ currentPage, setCurrentPage }: PaginationType) => {
             className={styles.btn}
             onClick={() => onClick(arr)}
             key={arr}
-            style={currentPage === arr ? buttonStyle : { color: "#000000" }}
+            style={currentPage === arr ? buttonStyle : { color: btnWriteColor }}
           >
             {arr}
           </button>
