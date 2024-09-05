@@ -11,6 +11,7 @@ import BlogPost from "../BlogPost";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "src/redux/configureStore";
 import { setPostLength } from "src/redux/modules/categorySlice";
+import styles from "./style.module.scss";
 
 interface PostsProps {
   currentPage: number;
@@ -52,7 +53,7 @@ const PostList = ({ currentPage, setCurrentPage }: PostsProps) => {
   const lastPostIndex = firstPostIndex + 5;
   const currentPosts = post.slice(firstPostIndex, lastPostIndex);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+    <div className={styles.post_grid}>
       {currentPosts.map((post) => (
         <BlogPost
           title={post.title}

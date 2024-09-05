@@ -1,57 +1,63 @@
 @import "common/common.scss";
 @import "common/device.scss";
 
+[data-theme="dark"] {
+  .post_box {
+    --tw-border-opacity: 1;
+    border: 1px solid rgb(51 65 85);
+    @include desktop {
+      &:hover {
+        border: 1px solid #ffffff;
+      }
+    }
+  }
+}
+.post_box:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
 .post_box {
   width: 100%;
-  height: 170px;
-  padding: 1.5rem;
+  height: 350px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border: 0.5px solid var(--color-text1);
-  border-radius: 10px;
-  background: var(--color-background2);
+  justify-content: space-between;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 
-  @include desktop {
-    &:hover {
-      border: 2px solid $orange;
+  .post_imageBox {
+    width: 100%;
+    height: 230px;
+    position: relative;
+    border-bottom: 0.5px solid #e2e2e2;
+
+    .post_thumbnail {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      inset: 0px;
+      object-fit: cover;
     }
   }
 
-  .post_upside {
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
+  .post_content {
+    padding: 1rem;
+    padding-top: 0.5rem;
 
-    .post_contents {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      color: var(--color-text1);
-
-      .post_date {
-        font-size: $font-size14;
-      }
-
-      .post_title {
-        font-size: $font-size18;
-        font-weight: 600;
-      }
-
-      .post_des {
-        font-size: $font-size16;
-      }
+    color: var(--color-text1);
+    .post_category {
+      font-size: $font-size16;
+      color: $orange;
+      font-weight: 800;
     }
-    @include mobile {
-      align-items: center;
+    .post_title {
+      font-size: $font-size18;
+      font-weight: 600;
+      margin: 0.8rem 0 1rem;
     }
-  }
-  .post_category {
-    font-size: $font-size16;
-    color: $orange;
-    font-weight: 800;
-    @include mobile {
-      display: none;
+
+    .post_date {
+      font-size: $font-size14;
     }
   }
 }

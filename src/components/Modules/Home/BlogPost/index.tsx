@@ -21,27 +21,24 @@ const BlogPost = ({
   category,
 }: PostProps) => {
   return (
-    <div>
-      <Link href={`/post/${slug}`}>
-        <div className={styles.post_box}>
-          <div className={styles.post_upside}>
-            <div className={styles.post_contents}>
-              <p className={styles.post_date}>{date}</p>
-              <p className={styles.post_title}>{title}</p>
-              <p className={styles.post_des}>{des}</p>
-            </div>
-            <Image
-              className={styles.post_thumbnail}
-              src={thumbnail}
-              alt="thumbnail"
-              width={120}
-              height={100}
-            />
-          </div>
-          <p className={styles.post_category}>{category}</p>
+    <Link href={`/post/${slug}`}>
+      <div className={styles.post_box}>
+        <div className={styles.post_imageBox}>
+          <Image
+            className={styles.post_thumbnail}
+            src={thumbnail}
+            alt="thumbnail"
+            width={100}
+            height={100}
+          />
         </div>
-      </Link>
-    </div>
+        <div className={styles.post_content}>
+          <p className={styles.post_category}>{category}</p>
+          <p className={styles.post_title}>{title}</p>
+          <p className={styles.post_date}>{date}</p>
+        </div>
+      </div>
+    </Link>
   );
 };
 
