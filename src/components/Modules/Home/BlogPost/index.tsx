@@ -12,14 +12,7 @@ interface PostProps {
   slug: string;
 }
 
-const BlogPost = ({
-  title,
-  date,
-  des,
-  slug,
-  thumbnail,
-  category,
-}: PostProps) => {
+const BlogPost = ({ title, date, slug, thumbnail, category }: PostProps) => {
   return (
     <Link href={`/post/${slug}`}>
       <div className={styles.post_box}>

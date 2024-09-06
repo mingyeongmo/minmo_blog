@@ -49,8 +49,8 @@ const PostList = ({ currentPage, setCurrentPage }: PostsProps) => {
     updateCurrentPage();
   }, [cate, search, posts, dispatch, updateCurrentPage]);
 
-  const firstPostIndex = (currentPage - 1) * 5;
-  const lastPostIndex = firstPostIndex + 5;
+  const firstPostIndex = (currentPage - 1) * 6;
+  const lastPostIndex = firstPostIndex + 6;
   const currentPosts = post.slice(firstPostIndex, lastPostIndex);
   return (
     <div className={styles.post_grid}>
